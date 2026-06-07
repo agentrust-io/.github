@@ -15,7 +15,8 @@ Open trust infrastructure for the agentic AI era.
 
 ## Principles
 
-Everything a developer needs to produce attested artifacts is free and open here. Everything an enterprise needs to verify those artifacts at scale, with SLAs, for regulators — that is commercial at [opaque.co](https://opaque.co).
+Everything a developer needs to produce attested artifacts is free and open here.
+
 
 The open-source projects in this org are developed in the open and submitted to standards bodies:
 
@@ -101,7 +102,7 @@ The eBook calls for policy at four layers — model, agent, tool, request — wi
 | MCP / A2A | Agent tool-call transcript surface |
 | AIBOM (SPDX 3.0 / CycloneDX 1.7) | Model component inventory |
 
-**TRACE Registry** is the public append-only Merkle registry of TRACE claim anchors. The canonical registry API is operated by [Opaque Systems](https://opaque.co); the GitHub mirror exists so any party can verify anchors without trusting Opaque. Git's immutable commit history is the tamper-evident proof.
+**TRACE Registry** is the public append-only Merkle registry of TRACE claim anchors. The GitHub mirror exists so any party can verify anchors independently. Git's immutable commit history is the tamper-evident proof.
 
 **AGT (Agent Governance Toolkit)** — [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), entering AAIF — provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), the VADP delegation protocol (scope-narrowing agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 

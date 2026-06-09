@@ -2,15 +2,15 @@
 
 Building AI agents right now is a lot like adopting a very fast, very confident puppy that also happens to have your API keys. It wanders. It chews on things it shouldn't. And the second you look away, it's leaked embarrassing data all over the floor.
 
-So most of us spend our days wrestling agents into submission — chasing what drifts, mopping up what leaks, hoping the next one behaves. Here's a more fun way to live: build your agents with rules up front that you actually know will be enforced. And you can prove they were.
+So most of us spend our days wrestling agents into submission: chasing what drifts, mopping up what leaks, hoping the next one behaves. Here's a more fun way to live: build your agents with rules up front that you actually know will be enforced. And you can prove they were.
 
-In some settings, that's a quirk you can mop up. In the enterprise — and anywhere regulated or sovereign — it's a breach. And the risk is mutating: the next leak may not be a careless agent at all, but a rogue one under a borrowed identity, indistinguishable from legitimate traffic. The risk is also increasing as new models grow increasingly capable of infiltration.
+In some settings, that's a quirk you can mop up. In the enterprise, and anywhere regulated or sovereign, it's a breach. And the risk is mutating: the next leak may not be a careless agent at all, but a rogue one under a borrowed identity, indistinguishable from legitimate traffic. The risk is also increasing as new models grow increasingly capable of infiltration.
 
-This leaves the builder with questions no current tooling can answer: Is this agent governed as it was built? Would I detect drift — or an identity operating in its place? Can I prove either to a party with no reason to trust me?
+This leaves the builder with questions no current tooling can answer: Is this agent governed as it was built? Would I detect drift, or an identity operating in its place? Can I prove either to a party with no reason to trust me?
 
-agentrust-io is the open trust layer built to answer them — replacing "we have guardrails that will probably catch issues and observability that will probably flag it after the fact" with evidence the builder can verify directly, and any auditor, customer, or regulator can independently confirm, without trusting the operator.
+agentrust-io is the open trust layer built to answer them: replacing "we have guardrails that will probably catch issues and observability that will probably flag it after the fact" with evidence the builder can verify directly, and any auditor, customer, or regulator can independently confirm, without trusting the operator.
 
-**This is not another agent framework.** agentrust-io doesn't replace the tools or standards teams already build with — it binds them into verifiable evidence. It comprises standards the ecosystem is already adopting: **MCP** and **A2A** for the agent and tool-call surface, **AGT** (Agent Governance Toolkit) for runtime policy, **SPIFFE** for workload identity, **SLSA** and **AIBOM/SBOM** for supply-chain and model provenance, **Cedar** for policy, and **RATS/EAT** for hardware attestation — aligned to NIST SP 800-207 and addresses all OWASP Agentic AI Top 10.
+**This is not another agent framework.** agentrust-io doesn't replace the tools or standards teams already build with: it binds them into verifiable evidence. It comprises standards the ecosystem is already adopting: **MCP** and **A2A** for the agent and tool-call surface, **AGT** (Agent Governance Toolkit) for runtime policy, **SPIFFE** for workload identity, **SLSA** and **AIBOM/SBOM** for supply-chain and model provenance, **Cedar** for policy, and **RATS/EAT** for hardware attestation, aligned to NIST SP 800-207 and addresses all OWASP Agentic AI Top 10.
 
 The specifications, SDKs, and conformance tests are free and open. Begin in software; advance to hardware-backed and post-quantum assurance as requirements demand.
 
@@ -31,7 +31,7 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 ## Principles
 
-These projects are developed in the open. We intend to propose them to recognized open standards bodies — and we're inviting the ecosystem to shape them:
+These projects are developed in the open. We intend to propose them to recognized open standards bodies; we're inviting the ecosystem to shape them:
 
 - **TRACE**: we intend to submit it as an open standard. The standards home is under evaluation (the Agentic AI Foundation under the Linux Foundation, or CoSAI under OASIS Open); we're inviting founding co-editors now.
 - **Agent Manifest**: we intend to submit it through CoSAI under OASIS Open, building on CoSAI Workstream 4.
@@ -41,18 +41,18 @@ These projects are developed in the open. We intend to propose them to recognize
 
 ## Participate
 
-agentrust-io is built as an open coalition, not a single-vendor stack — and we're inviting the ecosystem to shape it before v1.0.
+agentrust-io is built as an open coalition, not a single-vendor stack; we're inviting the ecosystem to shape it before v1.0.
 
 **Founding partners & co-editors.** Take a named seat on the specifications, contribute a hardware-root or platform annex, and help set conformance and governance. The charter is built for co-ownership.
 - **Confirmed founding partner:** Technology Innovation Institute (TII).
-- **Invited:** Anthropic, OpenAI, Google, Microsoft, NVIDIA, Intel, AMD, Block, and ServiceNow — and the standards homes we're proposing into (AAIF / Linux Foundation, CoSAI / OASIS Open). Co-editor slots are open.
+- **Invited:** Anthropic, OpenAI, Google, Microsoft, NVIDIA, Intel, AMD, Block, and ServiceNow; and the standards homes we're proposing into (AAIF / Linux Foundation, CoSAI / OASIS Open). Co-editor slots are open.
 
 **Contributors & implementers.** You don't need a seat to build with us:
-- If you build an agent framework or governance tooling — LangChain, CrewAI, LlamaIndex, Haystack, PydanticAI, Dify, Cisco AI Defense, or anything else in the ecosystem — bring an adapter.
+- If you build an agent framework or governance tooling (LangChain, CrewAI, LlamaIndex, Haystack, PydanticAI, Dify, Cisco AI Defense, or anything else in the ecosystem), bring an adapter.
 - Bring your platform's attestation root (TEE, GPU, TPM, or managed runtime) as a provider.
 - Pilot cMCP at your MCP tool-call boundary; run the conformance suite and tell us where it bends.
 
-**Sovereign & regulated deployments.** The stack is built so agents can run on regulated, proprietary, and sovereign data — hardware-rooted, post-quantum-ready, verifiable without trusting any single operator or jurisdiction. If you're advancing sovereign AI governance, we want you at the table.
+**Sovereign & regulated deployments.** The stack is built so agents can run on regulated, proprietary, and sovereign data: hardware-rooted, post-quantum-ready, verifiable without trusting any single operator or jurisdiction. If you're advancing sovereign AI governance, we want you at the table.
 
 To get involved, open a [GitHub Discussion](https://github.com/orgs/agentrust-io/discussions) or contact the maintainers.
 
@@ -138,13 +138,13 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 
 **[TRACE Registry](https://github.com/agentrust-io/trace-registry)** is the public append-only Merkle registry of TRACE claim anchors. The GitHub mirror exists so any party can verify anchors independently. Git's immutable commit history is the tamper-evident proof.
 
-**AGT (Agent Governance Toolkit)** — [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), the VADP delegation protocol (scope-narrowing agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
+**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), the VADP delegation protocol (scope-narrowing agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 
 ### Multi-Agent Coordination Governance
 
-The prize is obvious: connect agents directly to your most sensitive data and systems — the regulated records, the proprietary models, the production controls — because that is where the value of AI actually lives. It is also exactly what you cannot risk today.
+The prize is obvious: connect agents directly to your most sensitive data and systems: the regulated records, the proprietary models, the production controls, because that is where the value of AI actually lives. It is also exactly what you cannot risk today.
 
-If you have built and run agents, you already know two things to be true: they **drift**, and they **leak**. Anyone who says otherwise hasn't shipped one. Take the best case — a *good* agent leaks only **1% of the time** — and watch what a fleet does to it. The odds that **at least one** of `n` agents leaks is one minus the odds they *all* stay clean: `1 - (1 - 0.01)^n`:
+If you have built and run agents, you already know two things to be true: they **drift**, and they **leak**. Anyone who says otherwise hasn't shipped one. Take the best case: a *good* agent leaks only **1% of the time** and watch what a fleet does to it. The odds that **at least one** of `n` agents leaks is one minus the odds they *all* stay clean: `1 - (1 - 0.01)^n`:
 
 | Agents | Chance at least one leaks |
 |---|---|
@@ -154,12 +154,12 @@ If you have built and run agents, you already know two things to be true: they *
 
 Multi-agent architecture compounds it: an orchestrator delegates to sub-agents, scope widens down the chain, and no one can prove which agent did what.
 
-This is the layer the **Anthropic *Zero-Trust for AI Agents*** framework calls for — authentication of agent-to-agent communication, RBAC for agent hierarchies, consensus for high-stakes decisions — and where the stack enforces it:
+This is the layer the **Anthropic *Zero-Trust for AI Agents*** framework calls for: authentication of agent-to-agent communication, RBAC for agent hierarchies, consensus for high-stakes decisions; and where the stack enforces it:
 
 - **Agent Manifest artifact #8 (A2A delegation)** binds the full agent-to-agent trust chain into the signed manifest. A delegated scope can never exceed the orchestrator's own attested permissions; orchestrator spoofing and scope laundering are structurally prevented. AGT's VADP supplies the mechanism: scope-narrowing delegation with verifiable credentials.
 - **TRACE** records each agent's actions as a hashed, counted `tool_transcript`, so the full interaction graph of a multi-agent run can be reconstructed and proven after the fact.
 
-**Here is the good news.** Once every agent carries attested proof of *what it is* and emits verifiable evidence of *what it did* — once you can **show, not assert**, that an agent is doing exactly what you designed it to do — the fear inverts. You stop holding agents at arm's length from anything that matters and start connecting them to everything that does. That is the unlock: verifiable governance is what lets you wire your fleet into the crown jewels with confidence — because every agent is provably the one you approved, and every action leaves proof.
+Once every agent carries attested proof of *what it is* and emits verifiable evidence of *what it did*. 
 
 ### Detection and Response
 

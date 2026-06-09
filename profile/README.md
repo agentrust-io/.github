@@ -23,7 +23,7 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 | Project | Description | License | Status |
 |---------|-------------|---------|--------|
 | [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python + TypeScript. | Apache 2.0 | Developer Preview, launching CC Summit Jun 23 |
-| [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Gateway. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Developer Preview, launching CC Summit Jun 23 |
+| [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Developer Preview, launching CC Summit Jun 23 |
 | [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open EAT/JWT attestation standard. | CC BY 4.0 | Private, targeting AAIF submission Jul 2026 |
 | [trace-registry](https://github.com/agentrust-io/trace-registry) | Append-only public Merkle registry mirror for TRACE claim anchors. | CC BY 4.0 | Private |
 | [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE compliance test suite for certification. | Apache 2.0 | Private |
@@ -108,7 +108,7 @@ Every agentrust-io repository carries OpenSSF Scorecard badges, CodeQL SAST, Dep
 
 The Anthropic eBook cites specific MCP attacks: the Invariant Labs GitHub compromise via MCP integration, the Zenity AgentFlayer 0-click attack, the Postmark MCP npm backdoor. These are not hypothetical threats.
 
-**cMCP (Confidential MCP Gateway)** is a direct response. Every MCP tool call is intercepted, evaluated against a Cedar policy bundle, and enforced by a policy engine running inside a TEE. The policy bundle hash is measured into the hardware attestation report before any code runs.
+**cMCP (Confidential MCP Runtime)** is a direct response. Every MCP tool call is intercepted, evaluated against a Cedar policy bundle, and enforced by a policy engine running inside a TEE. The policy bundle hash is measured into the hardware attestation report before any code runs.
 
 | Threat | Software governance | cMCP |
 |---|---|---|

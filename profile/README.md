@@ -1,6 +1,18 @@
 # agentrust-io
 
-Open trust infrastructure for the agentic AI era.
+Building AI agents right now is a lot like adopting a very fast, very confident puppy that also happens to have your API keys. It wanders. It chews on things it shouldn't. And the second you look away, it's leaked embarrassing data all over the floor.
+
+So most of us spend our days wrestling agents into submission: chasing what drifts, mopping up what leaks, hoping the next one behaves. Here's a more fun way to live: build your agents with rules up front that you actually know will be enforced. And you can prove they were.
+
+In some settings, that's a quirk you can mop up. In the enterprise, and anywhere regulated or sovereign, it's a breach. And the risk is mutating: the next leak may not be a careless agent at all, but a rogue one under a borrowed identity, indistinguishable from legitimate traffic. The risk is also increasing as new models grow increasingly capable of infiltration.
+
+This leaves the builder with questions no current tooling can answer: Is this agent governed as it was built? Would I detect drift, or an identity operating in its place? Can I prove either to a party with no reason to trust me?
+
+agentrust-io is the open trust layer built to answer them: replacing "we have guardrails that will probably catch issues and observability that will probably flag it after the fact" with evidence the builder can verify directly, and any auditor, customer, or regulator can independently confirm, without trusting the operator.
+
+**This is not another agent framework.** agentrust-io doesn't replace the tools or standards teams already build with: it binds them into verifiable evidence. It comprises standards the ecosystem is already adopting: **MCP** and **A2A** for the agent and tool-call surface, **AGT** (Agent Governance Toolkit) for runtime policy, **SPIFFE** for workload identity, **SLSA** and **AIBOM/SBOM** for supply-chain and model provenance, **Cedar** for policy, and **RATS/EAT** for hardware attestation, aligned to NIST SP 800-207 and addresses all OWASP Agentic AI Top 10.
+
+The specifications, SDKs, and conformance tests are free and open. Begin in software; advance to hardware-backed and post-quantum assurance as requirements demand.
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/agentrust-io/agent-manifest/blob/main/LICENSE)
 [![AAIF](https://img.shields.io/badge/Targeting-AAIF_%2F_Linux_Foundation-6366f1)](https://agenticai.foundation)
@@ -15,29 +27,46 @@ Open trust infrastructure for the agentic AI era.
 | [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open EAT/JWT attestation standard. | CC BY 4.0 | Private, targeting AAIF submission Jul 2026 |
 | [trace-registry](https://github.com/agentrust-io/trace-registry) | Append-only public Merkle registry mirror for TRACE claim anchors. | CC BY 4.0 | Private |
 | [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE compliance test suite for certification. | Apache 2.0 | Private |
-| [examples](https://github.com/agentrust-io/examples) | Integration examples across financial services, healthcare, and SaaS. | MIT | Private |
+| [examples](https://github.com/agentrust-io/examples) | Integration examples across enterprise software vendors, financial services, insurance, healthcare, and sovereign operators. | MIT | Private |
 
 ## Principles
 
-Everything a developer needs to produce attested artifacts is free and open here.
+These projects are developed in the open. We intend to propose them to recognized open standards bodies; we're inviting the ecosystem to shape them:
 
-The open-source projects in this org are developed in the open and submitted to standards bodies:
+- **TRACE**: we intend to submit it as an open standard. The standards home is under evaluation (the Agentic AI Foundation under the Linux Foundation, or CoSAI under OASIS Open); we're inviting founding co-editors now.
+- **Agent Manifest**: we intend to submit it through CoSAI under OASIS Open, building on CoSAI Workstream 4.
+- **AGT (Agent Governance Toolkit)**: the runtime governance engine this stack builds on, created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license: [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit).
 
-- **TRACE spec**: submitting to the Agentic AI Foundation (AAIF) under the Linux Foundation
-- **Agent Manifest spec**: submitting to CoSAI under OASIS Open, building on CoSAI WS4 publications
-- **AGT**: the governance engine this stack builds on is entering AAIF via Microsoft
+---
+
+## Participate
+
+agentrust-io is built as an open coalition, not a single-vendor stack; we're inviting the ecosystem to shape it before v1.0.
+
+**Founding partners & co-editors.** Take a named seat on the specifications, contribute a hardware-root or platform annex, and help set conformance and governance. The charter is built for co-ownership.
+- **Confirmed founding partner:** Technology Innovation Institute (TII).
+- **Invited:** Anthropic, OpenAI, Google, Microsoft, NVIDIA, Intel, AMD, Block, and ServiceNow; and the standards homes we're proposing into (AAIF / Linux Foundation, CoSAI / OASIS Open). Co-editor slots are open.
+
+**Contributors & implementers.** You don't need a seat to build with us:
+- If you build an agent framework or governance tooling (LangChain, CrewAI, LlamaIndex, Haystack, PydanticAI, Dify, Cisco AI Defense, or anything else in the ecosystem), bring an adapter.
+- Bring your platform's attestation root (TEE, GPU, TPM, or managed runtime) as a provider.
+- Pilot cMCP at your MCP tool-call boundary; run the conformance suite and tell us where it bends.
+
+**Sovereign & regulated deployments.** The stack is built so agents can run on regulated, proprietary, and sovereign data: hardware-rooted, post-quantum-ready, verifiable without trusting any single operator or jurisdiction. If you're advancing sovereign AI governance, we want you at the table.
+
+To get involved, open a [GitHub Discussion](https://github.com/orgs/agentrust-io/discussions) or contact the maintainers.
 
 ---
 
 ## Zero-Trust Framework Alignment
 
-The Anthropic *Zero-Trust for AI Agents* eBook (May 2026) adapts NIST SP 800-207 to agentic systems, calling for continuous verification at six layers: agent identity and authentication, supply chain security, MCP and tool security, policy enforcement and governance, multi-agent coordination, and detection and response. This section maps each layer to the agentrust-io stack and names the gaps honestly.
+agentrust-io is our proposed **reference architecture for zero-trust agentic AI.** The Anthropic *Zero-Trust for AI Agents* eBook (May 2026) adapts NIST SP 800-207 to agentic systems, calling for continuous verification at six layers: agent identity and authentication, supply chain security, MCP and tool security, policy enforcement and governance, multi-agent coordination, and detection and response. This section maps each layer to the agentrust-io stack and names the gaps honestly.
 
 The core argument in that document: traditional perimeter security fails for AI agents because a signed JWT proves *who called an API*, not *what agent made the call*, *which system prompt was active*, *which model version ran*, or *under which policy it was operating*. That is the problem this org was built to solve.
 
 ### Agent Identity: closing the attestation gap
 
-The PDF frames agent identity as an authentication problem. The sharper framing: it is an **attestation** gap. Authentication proves who called. Attestation proves what ran and under what configuration.
+The PDF frames agent identity as an authentication problem. The sharper framing: it is an **[attestation gap](https://github.com/agentrust-io/agent-manifest)**. Authentication proves who called. Attestation proves what ran and under what configuration.
 
 **Agent Manifest** binds ten artifacts into a single cryptographically signed, hardware-attestable document:
 
@@ -54,7 +83,7 @@ The PDF frames agent identity as an authentication problem. The sharper framing:
 | 9 | Supply chain provenance | Compromised dependency runs as approved binary |
 | 10 | HITL approvals | EU AI Act Art. 14 violation |
 
-The signing key is hardware-sealed in a TEE. Hardware provider auto-selects: `SEV-SNP → TDX → TPM → software`. `OPAQUEProvider` is explicit opt-in via `OPAQUE_ATTESTATION_URL` and is never auto-detected. `GPUCCProvider` (NVIDIA H100/H200/Blackwell, CC mode) is planned for v0.2.
+The signing key is hardware-sealed in a TEE. Hardware provider auto-selects: `SEV-SNP -> TDX -> TPM -> software`. `OPAQUEProvider` is explicit opt-in via `OPAQUE_ATTESTATION_URL` and is never auto-detected. `GPUCCProvider` (NVIDIA H100/H200/Blackwell, CC mode) is planned for v0.2.
 
 A verifier holding the manifest and attestation report can prove, without trusting the operator, that a specific agent ran specific code under specific policy. Agent identity and user identity are cryptographically separate credentials: SPIFFE SVIDs for workload identity, Ed25519 (or post-quantum ML-DSA-65 at Level 3) for the manifest signature.
 
@@ -95,7 +124,7 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 
 **cMCP** handles tool-level and request-level policy with Cedar inside a TEE. Cedar is designed for per-request evaluation; this is not a batch audit but runtime enforcement on every call.
 
-**TRACE** defines the governance record format: what a compliance artifact should contain, how it is cryptographically bound, and how it anchors in a transparency log. TRACE composes existing standards rather than replacing them:
+**[TRACE](https://github.com/agentrust-io/trace-spec)** defines the governance record format: what a compliance artifact should contain, how it is cryptographically bound, and how it anchors in a transparency log. TRACE composes existing standards rather than replacing them:
 
 | Primitive | Role in TRACE |
 |---|---|
@@ -107,17 +136,30 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 | MCP / A2A | Agent tool-call transcript surface |
 | AIBOM (SPDX 3.0 / CycloneDX 1.7) | Model component inventory |
 
-**TRACE Registry** is the public append-only Merkle registry of TRACE claim anchors. The GitHub mirror exists so any party can verify anchors independently. Git's immutable commit history is the tamper-evident proof.
+**[TRACE Registry](https://github.com/agentrust-io/trace-registry)** is the public append-only Merkle registry of TRACE claim anchors. The GitHub mirror exists so any party can verify anchors independently. Git's immutable commit history is the tamper-evident proof.
 
-**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), entering AAIF) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), the VADP delegation protocol (scope-narrowing agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
+**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), the VADP delegation protocol (scope-narrowing agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 
-### Multi-Agent Coordination Security
+### Multi-Agent Coordination Governance
 
-The eBook calls for authentication of agent-to-agent communication, RBAC for agent hierarchies, and consensus for high-stakes decisions.
+The prize is obvious: connect agents directly to your most sensitive data and systems: the regulated records, the proprietary models, the production controls, because that is where the value of AI actually lives. It is also exactly what you cannot risk today.
 
-Agent Manifest artifact #8 (A2A Delegation) binds the full agent-to-agent trust chain into the manifest. A delegated scope cannot exceed the orchestrator's own attested manifest permissions, so orchestrator spoofing and scope laundering are structurally prevented. AGT's VADP provides the specific mechanism: scope-narrowing delegation with verifiable credentials. This is the differentiator over A2A, ACP, MCP, ANP, and APTP, which do not combine scope-narrowing delegation with verifiable credentials in this way.
+If you have built and run agents, you already know two things to be true: they **drift**, and they **leak**. Anyone who says otherwise hasn't shipped one. Take the best case: a *good* agent leaks only **1% of the time** and watch what a fleet does to it. The odds that **at least one** of `n` agents leaks is one minus the odds they *all* stay clean: `1 - (1 - 0.01)^n`:
 
-TRACE's `tool_transcript` field surfaces the MCP/A2A call surface as a hashed, counted artifact in each governance record. In a multi-agent system, each agent's TRACE record enables reconstruction of the full interaction graph post-hoc.
+| Agents | Chance at least one leaks |
+|---|---|
+| 1 | 1% |
+| 100 | **63%** |
+| 1,000 | **99.99% — effectively certain** |
+
+Multi-agent architecture compounds it: an orchestrator delegates to sub-agents, scope widens down the chain, and no one can prove which agent did what.
+
+This is the layer the **Anthropic *Zero-Trust for AI Agents*** framework calls for: authentication of agent-to-agent communication, RBAC for agent hierarchies, consensus for high-stakes decisions; and where the stack enforces it:
+
+- **Agent Manifest artifact #8 (A2A delegation)** binds the full agent-to-agent trust chain into the signed manifest. A delegated scope can never exceed the orchestrator's own attested permissions; orchestrator spoofing and scope laundering are structurally prevented. AGT's VADP supplies the mechanism: scope-narrowing delegation with verifiable credentials.
+- **TRACE** records each agent's actions as a hashed, counted `tool_transcript`, so the full interaction graph of a multi-agent run can be reconstructed and proven after the fact.
+
+Once every agent carries attested proof of *what it is* and emits verifiable evidence of *what it did*. 
 
 ### Detection and Response
 

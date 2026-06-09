@@ -1,0 +1,66 @@
+name: Contributor Reputation Check
+
+on:
+  pull_request_target:
+    types: [opened]
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      username:
+        description: "GitHub username to check"
+        required: true
+      run_cluster:
+        description: "Run cluster detection (API-heavy, opt-in)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+concurrency:
+  group: contributor-check-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    # Skip maintainers, bots, and known AI coding agents
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.actor != 'dependabot[bot]' &&
+       github.actor != 'github-actions[bot]' &&
+       github.actor != 'copilot-swe-agent[bot]' &&
+       github.actor != 'claude-code[bot]' &&
+       github.actor != 'imran-siddique')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            scripts
+            .github/actions/contributor-check
+
+      - name: Run contributor reputation check
+        id: reputation
+        uses: ./.github/actions/contributor-check
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          checks: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_cluster == 'true' && 'profile,credential,cluster' || 'profile,credential' }}
+
+      - name: Log results
+        if: always()
+        run: |
+          echo "Overall risk: ${{ steps.reputation.outputs.risk }}"
+          echo "Profile risk: ${{ steps.reputation.outputs.profile-risk }}"
+          echo "Credential risk: ${{ steps.reputation.outputs.credential-risk }}"
+          echo "Cluster risk: ${{ steps.reputation.outputs.cluster-risk }}"

@@ -1,8 +1,8 @@
 name: "Contributor Reputation Check"
 description: >
   Screens GitHub contributors for account-shape anomalies, cross-repo
-  credential laundering, and coordination patterns. Adapted from AGT
-  (microsoft/agent-governance-toolkit) under the MIT License.
+  credential laundering, and coordination patterns. Delegates to
+  microsoft/agent-governance-toolkit scripts (MIT License).
 
 inputs:
   github-token:
@@ -42,6 +42,15 @@ runs:
       uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
       with:
         python-version: "3.12"
+
+    - name: Checkout AGT scripts
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      with:
+        repository: microsoft/agent-governance-toolkit
+        ref: 410fb2ccf2bd9ff74ea2d67450f018316efb0556
+        persist-credentials: false
+        sparse-checkout: scripts
+        path: _agt
 
     - name: Resolve inputs
       id: inputs
@@ -88,7 +97,6 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        ACTION_PATH: ${{ github.action_path }}
         STEP_USERNAME: ${{ steps.inputs.outputs.username }}
         STEP_NUMBER: ${{ steps.inputs.outputs.number }}
         STEP_TYPE: ${{ steps.inputs.outputs.type }}
@@ -96,7 +104,7 @@ runs:
         INPUT_CHECKS: ${{ inputs.checks }}
         INPUT_RISK_THRESHOLD: ${{ inputs.risk-threshold }}
       run: |
-        python "$ACTION_PATH/../../../scripts/contributor_check_action.py" \
+        python "_agt/scripts/contributor_check_action.py" \
           --username "$STEP_USERNAME" \
           --checks "$INPUT_CHECKS" \
           --target-repo "$STEP_TARGET_REPO" \
@@ -108,6 +116,7 @@ runs:
       if: always()
       shell: bash
       run: |
+        rm -rf _agt
         rm -f /tmp/agt-profile.json /tmp/agt-profile.log
         rm -f /tmp/agt-cred.json /tmp/agt-cred.log
         rm -f /tmp/agt-cluster.json /tmp/agt-cluster.log

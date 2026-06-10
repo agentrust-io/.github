@@ -150,7 +150,7 @@ If you have built and run agents, you already know two things to be true: they *
 |---|---|
 | 1 | 1% |
 | 100 | **63%** |
-| 1,000 | **99.99% — effectively certain** |
+| 1,000 | **99.99% - effectively certain** |
 
 Multi-agent architecture compounds it: an orchestrator delegates to sub-agents, scope widens down the chain, and no one can prove which agent did what.
 

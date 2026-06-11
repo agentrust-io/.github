@@ -48,7 +48,11 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: agentrust-io/.github
-          ref: main
+          # Pinned to a specific commit of agentrust-io/.github: this workflow
+          # runs on pull_request_target with a write-capable token, so the
+          # code it pulls in must not be a mutable ref. Bump this SHA
+          # deliberately (after review) when the org action changes.
+          ref: 8a2b77bc35057566fd675f0a24e814564cf5322f # main as of 2026-06-10
           persist-credentials: false
           sparse-checkout: |
             scripts

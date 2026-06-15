@@ -22,12 +22,13 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 | Project | Description | License | Status |
 |---------|-------------|---------|--------|
-| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python + TypeScript. | Apache 2.0 | Developer Preview, launching CC Summit Jun 23 |
+| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Developer Preview, launching CC Summit Jun 23 |
 | [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Developer Preview, launching CC Summit Jun 23 |
 | [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open EAT/JWT attestation standard. | CC BY 4.0 | Private, targeting AAIF submission Jul 2026 |
 | [trace-registry](https://github.com/agentrust-io/trace-registry) | Append-only public Merkle registry mirror for TRACE claim anchors. | CC BY 4.0 | Private |
-| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE compliance test suite for certification. | Apache 2.0 | Private |
-| [examples](https://github.com/agentrust-io/examples) | Integration examples across enterprise software vendors, financial services, insurance, healthcare, and sovereign operators. | MIT | Private |
+| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.1.0 released Jun 12 |
+| [examples](https://github.com/agentrust-io/examples) | Integration examples across enterprise software vendors, financial services, insurance, healthcare, and sovereign operators. | MIT | Public |
+| [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims. | Apache 2.0 | Public |
 
 ## Principles
 

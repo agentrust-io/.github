@@ -63,7 +63,7 @@ To get involved, open a [GitHub Discussion](https://github.com/orgs/agentrust-io
 
 ## Zero-Trust Framework Alignment
 
-agentrust-io is our proposed **reference architecture for zero-trust agentic AI.** The Anthropic *Zero-Trust for AI Agents* eBook (May 2026) adapts NIST SP 800-207 to agentic systems, calling for continuous verification at six layers: agent identity and authentication, supply chain security, MCP and tool security, policy enforcement and governance, multi-agent coordination, and detection and response. This section maps each layer to the agentrust-io stack and names the gaps honestly.
+agentrust-io is our proposed **reference architecture for zero-trust agentic AI.** The Anthropic *Zero-Trust for AI Agents* eBook (May 2026) adapts NIST SP 800-207 to agentic systems. We map our stack to six verification areas drawn from it — agent identity and authentication, supply chain security, MCP and tool security, policy enforcement and governance, multi-agent coordination, and detection and response — and name the gaps honestly.
 
 The eBook's core point on identity: agent identity must be cryptographically rooted, because a label is trivial to forge — perimeter authentication alone cannot secure an autonomous agent. The sharper framing, and the gap this org was built to close: a signed JWT proves *who called an API*, not *what agent made the call*, *which system prompt was active*, *which model version ran*, or *under which policy it was operating*.
 

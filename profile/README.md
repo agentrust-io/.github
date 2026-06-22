@@ -29,6 +29,7 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 | [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.1.0 released Jun 12 |
 | [examples](https://github.com/agentrust-io/examples) | Integration examples across enterprise software vendors, financial services, insurance, healthcare, and sovereign operators. | MIT | Public |
 | [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims. | Apache 2.0 | Public |
+| [awesome-ai-governance](https://github.com/agentrust-io/awesome-ai-governance) | Community-curated list of tools, frameworks, standards, and resources for governing autonomous AI agents. | CC0 1.0 | Public, launched CC Summit Jun 23 |
 
 ## Principles
 

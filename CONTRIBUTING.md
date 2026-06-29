@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to AgentTrust projects.
+Thank you for your interest in contributing to AgenTrust projects.
 
 ## How to Contribute
 

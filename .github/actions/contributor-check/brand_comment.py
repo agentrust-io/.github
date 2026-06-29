@@ -16,7 +16,7 @@ from urllib.request import Request, urlopen
 
 
 MARKER = "<!-- agt-contributor-check -->"
-AGENTTRUST_FOOTER = (
+AGENTRUST_FOOTER = (
     "*Automated check by "
     "[AgenTrust Contributor Check]"
     "(https://github.com/agentrust-io/.github/tree/main/.github/actions/contributor-check).*"
@@ -45,16 +45,16 @@ def _api(token: str, method: str, path: str, data: dict | None = None) -> dict |
 
 
 def _branded_body(body: str) -> str:
-    if AGENTTRUST_FOOTER in body:
+    if AGENTRUST_FOOTER in body:
         return body
 
     lines = body.splitlines()
     for index, line in enumerate(lines):
         if line.startswith("*Automated check by ") and "Contributor Check" in line:
-            lines[index] = AGENTTRUST_FOOTER
+            lines[index] = AGENTRUST_FOOTER
             return "\n".join(lines)
 
-    return f"{body.rstrip()}\n\n{AGENTTRUST_FOOTER}"
+    return f"{body.rstrip()}\n\n{AGENTRUST_FOOTER}"
 
 
 def main() -> None:

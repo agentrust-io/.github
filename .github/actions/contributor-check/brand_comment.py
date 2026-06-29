@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Apply AgentTrust branding to the public contributor-check comment.
+"""Apply AgenTrust branding to the public contributor-check comment.
 
 The check implementation delegates to microsoft/agent-governance-toolkit at a
 pinned commit. That upstream script owns the risk calculation and writes an
 idempotent PR/issue comment. Keep its hidden marker so future runs update the
-same comment, but make the visible footer point at the AgentTrust action.
+same comment, but make the visible footer point at the AgenTrust action.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from urllib.request import Request, urlopen
 MARKER = "<!-- agt-contributor-check -->"
 AGENTTRUST_FOOTER = (
     "*Automated check by "
-    "[AgentTrust Contributor Check]"
+    "[AgenTrust Contributor Check]"
     "(https://github.com/agentrust-io/.github/tree/main/.github/actions/contributor-check).*"
 )
 
@@ -88,7 +88,7 @@ def main() -> None:
 
             branded = _branded_body(body)
             if branded == body:
-                print("Contributor-check comment already has AgentTrust branding.")
+                print("Contributor-check comment already has AgenTrust branding.")
                 return
 
             _api(
@@ -97,7 +97,7 @@ def main() -> None:
                 f"/repos/{owner}/{repo}/issues/comments/{comment['id']}",
                 {"body": branded},
             )
-            print("Applied AgentTrust branding to contributor-check comment.")
+            print("Applied AgenTrust branding to contributor-check comment.")
             return
 
         if len(comments) < 100:

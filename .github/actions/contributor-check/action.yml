@@ -2,7 +2,7 @@ name: "Contributor Reputation Check"
 description: >
   Screens GitHub contributors for account-shape anomalies, cross-repo
   credential laundering, and coordination patterns. Public comments are
-  AgentTrust-branded; risk checks delegate to pinned
+  AgenTrust-branded; risk checks delegate to pinned
   microsoft/agent-governance-toolkit scripts (MIT License).
 
 inputs:
@@ -113,7 +113,7 @@ runs:
           --number "$STEP_NUMBER" \
           --item-type "$STEP_TYPE"
 
-    - name: Apply AgentTrust comment branding
+    - name: Apply AgenTrust comment branding
       if: ${{ steps.inputs.outputs.type != 'manual' && steps.inputs.outputs.number != '0' }}
       shell: bash
       env:

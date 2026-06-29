@@ -1,7 +1,8 @@
 name: "Contributor Reputation Check"
 description: >
   Screens GitHub contributors for account-shape anomalies, cross-repo
-  credential laundering, and coordination patterns. Delegates to
+  credential laundering, and coordination patterns. Public comments are
+  AgenTrust-branded; risk checks delegate to pinned
   microsoft/agent-governance-toolkit scripts (MIT License).
 
 inputs:
@@ -109,6 +110,21 @@ runs:
           --checks "$INPUT_CHECKS" \
           --target-repo "$STEP_TARGET_REPO" \
           --risk-threshold "$INPUT_RISK_THRESHOLD" \
+          --number "$STEP_NUMBER" \
+          --item-type "$STEP_TYPE"
+
+    - name: Apply AgenTrust comment branding
+      if: ${{ steps.inputs.outputs.type != 'manual' && steps.inputs.outputs.number != '0' }}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        STEP_NUMBER: ${{ steps.inputs.outputs.number }}
+        STEP_TYPE: ${{ steps.inputs.outputs.type }}
+        STEP_TARGET_REPO: ${{ steps.inputs.outputs.target_repo }}
+      run: |
+        python "${{ github.action_path }}/brand_comment.py" \
+          --github-token "$GITHUB_TOKEN" \
+          --target-repo "$STEP_TARGET_REPO" \
           --number "$STEP_NUMBER" \
           --item-type "$STEP_TYPE"
 

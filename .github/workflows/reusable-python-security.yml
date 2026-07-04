@@ -1,0 +1,32 @@
+name: reusable-python-security
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        type: string
+        default: "3.12"
+permissions:
+  contents: read
+jobs:
+  static-and-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4                 # TODO: pin to commit SHA before merge
+      - uses: actions/setup-python@v5             # TODO: pin to commit SHA before merge
+        with:
+          python-version: "${{ inputs.python-version }}"
+      - run: pip install ruff mypy bandit pip-audit cyclonedx-bom
+      - name: Ruff (lint)
+        run: ruff check .
+      - name: Mypy (types)
+        run: mypy . || true
+      - name: Bandit (SAST)
+        run: bandit -r src -ll
+      - name: pip-audit (SCA)
+        run: pip-audit
+      - name: SBOM (CycloneDX)
+        run: cyclonedx-py environment -o sbom.json || true
+      - uses: actions/upload-artifact@v4          # TODO: pin to commit SHA before merge
+        with:
+          name: sbom
+          path: sbom.json

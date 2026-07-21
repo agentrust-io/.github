@@ -16,7 +16,7 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/agentrust-io/agent-manifest/blob/main/LICENSE)
 [![AAIF](https://img.shields.io/badge/Targeting-AAIF_%2F_Linux_Foundation-6366f1)](https://agenticai.foundation)
-[![CC Summit](https://img.shields.io/badge/Launching-CC_Summit_Jun_23_2026-7c3aed)](https://confidentialcomputingsummit.com)
+[![CC Summit](https://img.shields.io/badge/Launched-CC_Summit_Jun_2026-7c3aed)](https://confidentialcomputingsummit.com)
 
 > **The 2-minute version:** [technical one-pager](technical-one-pager.md).
 
@@ -24,12 +24,13 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 | Project | Description | License | Status |
 |---------|-------------|---------|--------|
-| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Developer Preview, launching CC Summit Jun 23 |
-| [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Developer Preview, launching CC Summit Jun 23 |
-| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open EAT/JWT attestation standard. | CC BY 4.0 | Private, targeting AAIF submission Jul 2026 |
+| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.3.0 |
+| [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Public, v0.3.0 |
+| [ca2a](https://github.com/agentrust-io/ca2a) | cA2A: Confidential Agent-to-Agent. Attested, attenuated delegation profile on top of A2A, with a sealed peer channel and offline-verifiable provenance. | MIT | Public, alpha (pre-release) |
+| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open EAT/JWT attestation standard. | CC BY 4.0 | Public, targeting AAIF submission |
 | [trace-registry](https://github.com/agentrust-io/trace-registry) | Append-only public Merkle registry mirror for TRACE claim anchors. | CC BY 4.0 | Private |
-| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.1.0 released Jun 12 |
-| [examples](https://github.com/agentrust-io/examples) | Integration examples across enterprise software vendors, financial services, insurance, healthcare, and sovereign operators. | MIT | Public |
+| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.2.0 |
+| [examples](https://github.com/agentrust-io/examples) | End-to-end integration examples: financial services, healthcare, multi-tenant SaaS, industrial embodied AI, and agent-to-agent delegation. | MIT | Public |
 | [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims. | Apache 2.0 | Public |
 | [awesome-ai-governance](https://github.com/agentrust-io/awesome-ai-governance) | Community-curated list of tools, frameworks, standards, and resources for governing autonomous AI agents. | CC0 1.0 | Public, launched CC Summit Jun 23 |
 
@@ -143,7 +144,7 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 
 **[TRACE Registry](https://github.com/agentrust-io/trace-registry)** is the public append-only Merkle registry of TRACE claim anchors. The GitHub mirror exists so any party can verify anchors independently. Git's immutable commit history is the tamper-evident proof.
 
-**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 4,250+ stars, 10/10 OWASP Agentic Top 10) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
+**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 4,800+ stars, 10/10 OWASP Agentic Top 10) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 
 ### Multi-Agent Coordination Governance
 
@@ -162,6 +163,7 @@ Multi-agent architecture compounds it: an orchestrator delegates to sub-agents, 
 This is the layer the **Anthropic *Zero-Trust for AI Agents*** framework calls for: authentication of agent-to-agent communication, RBAC for agent hierarchies, consensus for high-stakes decisions; and where the stack enforces it:
 
 - **Agent Manifest artifact #8 (A2A delegation)** binds the full agent-to-agent trust chain into the signed manifest. A delegated scope can never exceed the orchestrator's own attested permissions; orchestrator spoofing and scope laundering are structurally prevented. AGT supplies the mechanism: scope-chain delegation (monotonic narrowing) with verifiable credentials.
+- **[cA2A](https://github.com/agentrust-io/ca2a) (Confidential A2A)** is the profile that carries this at the agent-to-agent boundary: each hop presents a signed delegation credential whose scope is a provable subset of its parent, verified offline today; attested peers and a payload sealed to the peer's measurement are on the roadmap.
 - **TRACE** records each agent's actions as a hashed, counted `tool_transcript`, so the full interaction graph of a multi-agent run can be reconstructed and proven after the fact.
 
 Once every agent carries attested proof of *what it is* and emits verifiable evidence of *what it did*. 

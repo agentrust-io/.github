@@ -14,11 +14,21 @@ agentrust-io is the open trust layer built to answer them: replacing "we have gu
 
 The specifications, SDKs, and conformance tests are free and open. Begin in software; advance to hardware-backed and post-quantum assurance as requirements demand.
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/agentrust-io/agent-manifest/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache_2.0_%2F_MIT_%2F_CC_BY_4.0-blue.svg)](#projects)
 [![AAIF](https://img.shields.io/badge/Targeting-AAIF_%2F_Linux_Foundation-6366f1)](https://agenticai.foundation)
 [![CC Summit](https://img.shields.io/badge/Launched-CC_Summit_Jun_2026-7c3aed)](https://confidentialcomputingsummit.com)
 
 > **The 2-minute version:** [technical one-pager](technical-one-pager.md).
+
+> ### AgenTrust Fellowship 2026: applications 1 to 29 August
+>
+> OPAQUE is funding **three to five fellows** to work on these projects for six months, part-time at 20 hours per week, paid. The work is here in the open repos; OPAQUE is the employer and funder, and the fellowship exists to put more hands on the open specifications rather than on a product.
+>
+> For security engineers, distributed systems researchers, AI governance and compliance professionals, and Ph.D. students. Fellows contribute code and specifications and complete a public technical artifact such as a paper or a conference talk. Mentored by Imran Siddique, Chief Platform Officer at OPAQUE and creator of AGT.
+>
+> Selection is on a **technical proposal**, so start from the work rather than the pitch: [open issues labelled `fellowship`](https://github.com/search?q=org%3Aagentrust-io+is%3Aissue+is%3Aopen+label%3Afellowship&type=issues) across trace-spec, cmcp, cA2A, and agent-manifest are real, currently-open items. Cohort starts September 2026.
+>
+> [**Read the announcement**](https://www.opaque.co/resources/articles/opaque-announces-applications-for-agentrust-fellowship-to-advance-open-standards-for-verifiable-ai-agents)
 
 ## Projects
 
@@ -52,6 +62,8 @@ agentrust-io is built as an open coalition, not a single-vendor stack; we're inv
 **Founding partners & co-editors.** Take a named seat on the specifications, contribute a hardware-root or platform annex, and help set conformance and governance. The charter is built for co-ownership.
 - **Confirmed founding partner:** Technology Innovation Institute (TII).
 - **Invited:** Anthropic, OpenAI, Google, Microsoft, NVIDIA, Intel, AMD, Block, and ServiceNow; and the standards homes we're proposing into (AAIF / Linux Foundation, CoSAI / OASIS Open). Co-editor slots are open.
+
+**Fellows.** OPAQUE funds three to five paid, part-time fellowships on these projects, applications 1 to 29 August 2026. See the callout at the top of this page.
 
 **Contributors & implementers.** You don't need a seat to build with us:
 - If you build an agent framework or governance tooling (LangChain, CrewAI, LlamaIndex, Haystack, PydanticAI, Dify, Cisco AI Defense, or anything else in the ecosystem), bring an adapter.

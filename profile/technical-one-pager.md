@@ -11,7 +11,7 @@ Anthropic's [*Zero-Trust for AI Agents*](https://claude.com/blog/zero-trust-for-
 
 agentrust-io stands on two things that already exist and work.
 
-**1 · Policy — the Agent Governance Toolkit (AGT).** Created by Imran Siddique (now OPAQUE's Chief Platform Officer) at Microsoft and open-sourced under MIT: 4,250+ stars, 590+ forks since its April 2026 public launch; 10/10 OWASP Agentic Top 10 coverage; ships trust-score decay, scope-chain delegation (monotonic narrowing), and a multi-agent fleet daemon; now being considered by AAIF for standardization.
+**1 · Policy — the Agent Governance Toolkit (AGT).** Created by Imran Siddique (now OPAQUE's Chief Platform Officer) at Microsoft and open-sourced under MIT: 5,100+ stars, 830+ forks since its April 2026 public launch; 10/10 OWASP Agentic Top 10 coverage; ships trust-score decay, scope-chain delegation (monotonic narrowing), and a multi-agent fleet daemon; now being considered by AAIF for standardization.
 
 **2 · Enforcement — a confidential runtime, pluggable by design.** The policy bundle is sealed and measured inside a TEE on the confidential-computing silicon you already operate — Intel TDX, AMD SEV-SNP, NVIDIA CC, or TPM. The OPAQUE Confidential AI is the hardware-rooted, managed reference implementation; an operator can bring its own.
 

@@ -24,15 +24,16 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 | Project | Description | License | Status |
 |---------|-------------|---------|--------|
-| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.3.0 |
+| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.7.0 |
 | [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Public, v0.3.0 |
-| [ca2a](https://github.com/agentrust-io/ca2a) | cA2A: Confidential Agent-to-Agent. Attested, attenuated delegation profile on top of A2A, with a sealed peer channel and offline-verifiable provenance. | MIT | Public, alpha (pre-release) |
-| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open EAT/JWT attestation standard. | CC BY 4.0 | Public, targeting AAIF submission |
-| [trace-registry](https://github.com/agentrust-io/trace-registry) | Append-only public Merkle registry mirror for TRACE claim anchors. | CC BY 4.0 | Private |
-| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.2.0 |
+| [ca2a](https://github.com/agentrust-io/ca2a) | cA2A: Confidential Agent-to-Agent. Attested, attenuated delegation profile on top of A2A, with a sealed peer channel and offline-verifiable provenance. | MIT | Public, alpha (v0.1.0a1) |
+| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open attestation standard: an EAT (RFC 9711) profile carried in a JWT or CWT/COSE envelope, plus the `agentrust-trace` reference SDK. | Dual: CC BY 4.0 (spec text), Apache 2.0 (code) | Public, spec v0.2, SDK v0.5.1 |
+| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.4.0 |
 | [examples](https://github.com/agentrust-io/examples) | End-to-end integration examples: financial services, healthcare, multi-tenant SaaS, industrial embodied AI, and agent-to-agent delegation. | MIT | Public |
-| [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims. | Apache 2.0 | Public |
+| [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims, plus coding-agent plugins. | Apache 2.0 | Public |
+| [demos](https://github.com/agentrust-io/demos) | Runnable demos and the web console used for walkthroughs. | MIT | Public |
 | [awesome-ai-governance](https://github.com/agentrust-io/awesome-ai-governance) | Community-curated list of tools, frameworks, standards, and resources for governing autonomous AI agents. | CC0 1.0 | Public, launched CC Summit Jun 23 |
+| [trace-registry](https://github.com/agentrust-io/trace-registry) | Merkle registry of TRACE claim anchors, with a normative anchor and inclusion-proof format. | CC BY 4.0 | **Private.** Publishing the anchor format is tracked in [trace-spec#111](https://github.com/agentrust-io/trace-spec/issues/111) |
 
 ## Principles
 
@@ -88,7 +89,11 @@ The PDF frames agent identity as an authentication problem. The sharper framing:
 | 9 | Supply chain provenance | Compromised dependency runs as approved binary |
 | 10 | HITL approvals | EU AI Act Art. 14 violation |
 
-The signing key is hardware-sealed in a TEE. Hardware provider auto-selects: `SEV-SNP -> TDX -> TPM -> software`. `OPAQUEProvider` is explicit opt-in via `OPAQUE_ATTESTATION_URL` and is never auto-detected. `GPUCCProvider` (NVIDIA H100/H200/Blackwell, CC mode) is planned for v0.2.
+The signing key is hardware-sealed in a TEE. Hardware provider auto-selects: `Azure CVM -> SEV-SNP -> TDX -> TPM -> software`. `OPAQUEProvider` is explicit opt-in via `OPAQUE_ATTESTATION_URL` and is never auto-detected. `GPUCCProvider` (NVIDIA H100/H200/Blackwell, CC mode) is not shipped; it is blocked on H100 quota rather than on design.
+
+Azure is checked before the bare-metal SNP probe and is its own provider for a reason worth stating plainly: Azure runs SEV-SNP behind a Hyper-V paravisor, so the report is read through the vTPM and the root of trust is a vTPM AK chained to the SNP report, not a guest-controlled `REPORT_DATA`. A consumer keying on the platform value can tell the two apart. **Azure TDX cannot be attested offline at all**: the guest receives a vTPM-MAC'd `TDREPORT` rather than a signed DCAP quote, so rooting it needs a networked service (Azure MAA). Offline TDX works on non-paravisor guests such as GCP C3.
+
+**What is verified against real silicon, as opposed to parsed:** SEV-SNP report signatures verify to the AMD root (VCEK then ASK then ARK), hardware-validated on GCP N2D and live Azure SEV-SNP. Intel TDX verifies a full DCAP v4 quote to the pinned Intel SGX Root CA, offline and hardware-validated on GCP C3. TPM 2.0 quotes verify an AK chain to a pinned root, validated against a real Azure vTPM quote. Nothing in that list is a format check standing in for a signature check.
 
 A verifier holding the manifest and attestation report can prove, without trusting the operator, that a specific agent ran specific code under specific policy. Agent identity and user identity are cryptographically separate credentials: SPIFFE SVIDs for workload identity, Ed25519 (or post-quantum ML-DSA-65 at Level 3) for the manifest signature.
 
@@ -105,7 +110,7 @@ Four conformance levels address the full deployment range:
 
 Agent Manifest artifact #9 binds container digest, SLSA provenance level, and SBOMs into the signed manifest. A supply chain attack that swaps the container invalidates the TEE measurement, which invalidates the manifest signature. Hardware attestation makes this structurally detectable, not just policy-prohibited.
 
-**TRACE** includes `build_provenance` as a first-class field (SLSA Provenance v1.0) and an `AIBOM` field (SPDX 3.0 / CycloneDX 1.7) capturing the model weights digest. The model component inventory is bound into a hardware-attested record and cannot be swapped after signing.
+**TRACE** includes `build_provenance` as a first-class field (SLSA Provenance v1.0). The model is identified by `model.weights_digest`, and an AIBOM is referenced by digest through `model.aibom_uri` (SPDX 3.0 AI Profile / CycloneDX 1.7 ML-BOM) rather than embedded. Both are inside the signed payload, so the model component inventory cannot be swapped after signing.
 
 Every agentrust-io repository carries OpenSSF Scorecard badges, CodeQL SAST, Dependabot, pip-audit on every PR, and bandit security linting. The tooling in this org practices what it recommends.
 
@@ -131,6 +136,8 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 
 **[TRACE](https://github.com/agentrust-io/trace-spec)** defines the governance record format: what a compliance artifact should contain, how it is cryptographically bound, and how it anchors in a transparency log. TRACE composes existing standards rather than replacing them:
 
+**TRACE v0.2 is current, and moving to it is not optional if you pinned the v0.1 profile URI.** The EAT profile is now `tag:agentrust-io.com,2026:trace-v0.2`. The v0.1 identifier named a domain this project never controlled, which RFC 4151 does not permit for a tag URI, so it was invalid rather than merely renamed. Verifiers cut over rather than accepting both, because a verifier honouring the old identifier would keep certifying records minted under a name we do not own. Records already issued under v0.1 stay verifiable against the v0.1 spec and the `agentrust-trace` 0.4.x and `agentrust-trace-tests` 0.3.x releases, which remain published. v0.2 also makes `transparency` optional below Level 2, since an unanchored Level 0 or Level 1 record has no receipt to name.
+
 | Primitive | Role in TRACE |
 |---|---|
 | RATS / EAT (RFC 9711) | Wire envelope and claim model |
@@ -139,12 +146,13 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 | SCITT | Append-only transparency anchoring |
 | EAR (draft-ietf-rats-ar4si) | Verifier appraisal output |
 | MCP / A2A | Agent tool-call transcript surface |
-| AIBOM (SPDX 3.0 / CycloneDX 1.7) | Model component inventory |
-| CBOM (CycloneDX) | Cryptographic bill of materials — crypto libraries/algorithms in use (post-quantum readiness) |
+| AIBOM (SPDX 3.0 AI Profile / CycloneDX 1.7 ML-BOM) | Model component inventory, referenced by digest from `model.aibom_uri` |
 
-**[TRACE Registry](https://github.com/agentrust-io/trace-registry)** is the public append-only Merkle registry of TRACE claim anchors. The GitHub mirror exists so any party can verify anchors independently. Git's immutable commit history is the tamper-evident proof.
+**[TRACE Registry](https://github.com/agentrust-io/trace-registry)** is an append-only Merkle registry of TRACE claim anchors, built on RFC 6962 (Certificate Transparency) trees so a third party can verify inclusion without trusting the registry operator. Git's immutable commit history is the tamper-evident proof.
 
-**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 4,800+ stars, 10/10 OWASP Agentic Top 10) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
+**The repository is currently private, and that is a gap rather than a design choice.** Independent verification needs the anchor and inclusion-proof format, which is specified normatively but not yet published. Publishing it is tracked in [trace-spec#111](https://github.com/agentrust-io/trace-spec/issues/111). Until then, treat independent anchor verification as documented-but-not-yet-exercisable by outside parties.
+
+**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 5,100+ stars, 10/10 OWASP Agentic Top 10) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 
 ### Multi-Agent Coordination Governance
 
@@ -163,10 +171,10 @@ Multi-agent architecture compounds it: an orchestrator delegates to sub-agents, 
 This is the layer the **Anthropic *Zero-Trust for AI Agents*** framework calls for: authentication of agent-to-agent communication, RBAC for agent hierarchies, consensus for high-stakes decisions; and where the stack enforces it:
 
 - **Agent Manifest artifact #8 (A2A delegation)** binds the full agent-to-agent trust chain into the signed manifest. A delegated scope can never exceed the orchestrator's own attested permissions; orchestrator spoofing and scope laundering are structurally prevented. AGT supplies the mechanism: scope-chain delegation (monotonic narrowing) with verifiable credentials.
-- **[cA2A](https://github.com/agentrust-io/ca2a) (Confidential A2A)** is the profile that carries this at the agent-to-agent boundary: each hop presents a signed delegation credential whose scope is a provable subset of its parent, verified offline today; attested peers and a payload sealed to the peer's measurement are on the roadmap.
+- **[cA2A](https://github.com/agentrust-io/ca2a) (Confidential A2A)** is the profile that carries this at the agent-to-agent boundary: each hop presents a signed delegation credential whose scope is a provable subset of its parent, verified offline. Peer attestation and sealing to a peer's measurement are no longer roadmap: the handshake has run off a live SEV-SNP quote returning `assurance="hardware"`, with the payload sealed to a channel key a hardware-verified measurement vouches for, followed by a cross-operator run from an Azure SEV-SNP peer to a GCP Intel TDX peer. Two limits remain and cA2A's own docs state them: that appraisal was **one-directional** (the caller appraised the callee, not the reverse, so mutual simultaneous attestation is outstanding), and the reference server and client still default to software mode, so the hardware path is a validated capability rather than the default configuration.
 - **TRACE** records each agent's actions as a hashed, counted `tool_transcript`, so the full interaction graph of a multi-agent run can be reconstructed and proven after the fact.
 
-Once every agent carries attested proof of *what it is* and emits verifiable evidence of *what it did*. 
+The goal is that every agent carries attested proof of *what it is* and emits verifiable evidence of *what it did*, so a multi-agent run can be reconstructed by someone who trusts none of its operators.
 
 ### Detection and Response
 

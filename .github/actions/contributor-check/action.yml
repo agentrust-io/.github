@@ -48,7 +48,7 @@ runs:
       uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         repository: microsoft/agent-governance-toolkit
-        ref: 410fb2ccf2bd9ff74ea2d67450f018316efb0556
+        ref: 359a6b8cf453f95d6bc9caf932057e1e78ccffd9 # main as of 2026-07-31
         persist-credentials: false
         sparse-checkout: scripts
         path: _agt

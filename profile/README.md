@@ -8,7 +8,9 @@ In some settings, that's a quirk you can mop up. In the enterprise, and anywhere
 
 This leaves the builder with questions no current tooling can answer: Is this agent governed as it was built? Would I detect drift, or an identity operating in its place? Can I prove either to a party with no reason to trust me?
 
-agentrust-io is the open trust layer built to answer them: replacing "we have guardrails that will probably catch issues and observability that will probably flag it after the fact" with evidence the builder can verify directly, and any auditor, customer, or regulator can independently confirm, without trusting the operator.
+There is now a well-funded category of runtime control planes that answers with a console. They sit in front of the agent, apply policy to every call, and write the log. **The log is written by the thing it describes.** If the control plane is misconfigured, compromised, or simply wrong about what it enforced, its own record still says otherwise, and nothing outside it can tell. Buying a second one does not help, because the second one attests to itself too. This is the self-attestation gap, and it is structural rather than a feature deficit: no amount of funding closes it from inside the control plane.
+
+agentrust-io is the open trust layer built to close it: replacing "we have guardrails that will probably catch issues and observability that will probably flag it after the fact" with evidence rooted in hardware the operator does not control, that the builder can verify directly, and any auditor, customer, or regulator can independently confirm without trusting the operator. The evidence is a portable, machine-readable record rather than a view inside someone's product, which is what makes it something you can hand to a counterparty.
 
 **This is not another agent framework.** agentrust-io doesn't replace the tools or standards teams already build with: it binds them into verifiable evidence. It comprises standards the ecosystem is already adopting: **MCP** and **A2A** for the agent and tool-call surface, **AGT** (Agent Governance Toolkit) for runtime policy, **SPIFFE** for workload identity, **SLSA** and **AIBOM/SBOM** for supply-chain and model provenance, **Cedar** for policy, and **RATS/EAT** for hardware attestation, aligned to NIST SP 800-207 and addresses all OWASP Agentic AI Top 10.
 
@@ -34,11 +36,11 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 | Project | Description | License | Status |
 |---------|-------------|---------|--------|
-| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.7.0 |
+| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.10.0 |
 | [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Public, v0.3.0 |
 | [ca2a](https://github.com/agentrust-io/ca2a) | cA2A: Confidential Agent-to-Agent. Attested, attenuated delegation profile on top of A2A, with a sealed peer channel and offline-verifiable provenance. | MIT | Public, alpha (v0.1.0a1) |
-| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open attestation standard: an EAT (RFC 9711) profile carried in a JWT or CWT/COSE envelope, plus the `agentrust-trace` reference SDK. | Dual: CC BY 4.0 (spec text), Apache 2.0 (code) | Public, spec v0.2, SDK v0.5.1 |
-| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.4.0 |
+| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open attestation standard: an EAT (RFC 9711) profile carried in a JWT or CWT/COSE envelope, plus the `agentrust-trace` reference SDK. | Dual: CC BY 4.0 (spec text), Apache 2.0 (code) | Public, spec v0.2, SDK v0.6.0 |
+| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.4.1 |
 | [examples](https://github.com/agentrust-io/examples) | End-to-end integration examples: financial services, healthcare, multi-tenant SaaS, industrial embodied AI, and agent-to-agent delegation. | MIT | Public |
 | [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims, plus coding-agent plugins. | Apache 2.0 | Public |
 | [demos](https://github.com/agentrust-io/demos) | Runnable demos and the web console used for walkthroughs. | MIT | Public |
@@ -49,7 +51,7 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 These projects are developed in the open. We intend to propose them to recognized open standards bodies; we're inviting the ecosystem to shape them:
 
-- **TRACE**: we intend to submit it as an open standard. The standards home is under evaluation (the Agentic AI Foundation under the Linux Foundation, or CoSAI under OASIS Open); we're inviting founding co-editors now.
+- **TRACE**: we intend to submit it to the **Agentic AI Foundation (AAIF) under the Linux Foundation**, where OPAQUE is a member and participates in the Observability and Traceability working group. The submission has not been filed yet; this page will name the date when it is. Founding co-editor seats are open now.
 - **Agent Manifest**: we intend to submit it through CoSAI under OASIS Open, building on CoSAI Workstream 4.
 - **AGT (Agent Governance Toolkit)**: the runtime governance engine this stack builds on, created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license: [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit).
 
@@ -61,7 +63,7 @@ agentrust-io is built as an open coalition, not a single-vendor stack; we're inv
 
 **Founding partners & co-editors.** Take a named seat on the specifications, contribute a hardware-root or platform annex, and help set conformance and governance. The charter is built for co-ownership.
 - **Confirmed founding partner:** Technology Innovation Institute (TII).
-- **Invited:** Anthropic, OpenAI, Google, Microsoft, NVIDIA, Intel, AMD, Block, and ServiceNow; and the standards homes we're proposing into (AAIF / Linux Foundation, CoSAI / OASIS Open). Co-editor slots are open.
+- **Co-editor seats are open**, including the per-surface vendor annex slots listed in [§4.4 of the TRACE spec](https://github.com/agentrust-io/trace-spec/blob/main/spec/trace-v0.2.md). We name partners here once they have confirmed, not once we have asked.
 
 **Fellows.** OPAQUE funds three to five paid, part-time fellowships on these projects, applications 1 to 29 August 2026. See the callout at the top of this page.
 
@@ -78,7 +80,7 @@ To get involved, open a [GitHub Discussion](https://github.com/orgs/agentrust-io
 
 ## Zero-Trust Framework Alignment
 
-agentrust-io is our proposed **reference architecture for zero-trust agentic AI.** The Anthropic *Zero-Trust for AI Agents* eBook (May 2026) adapts NIST SP 800-207 to agentic systems. We map our stack to six verification areas drawn from it — agent identity and authentication, supply chain security, MCP and tool security, policy enforcement and governance, multi-agent coordination, and detection and response — and name the gaps honestly.
+agentrust-io is our proposed **reference architecture for zero-trust agentic AI.** The *Zero-Trust for AI Agents* eBook (Anthropic, May 2026) adapts NIST SP 800-207 to agentic systems, and its six verification areas are a useful checklist to be measured against rather than the organizing principle of this stack. We map to all six — agent identity and authentication, supply chain security, MCP and tool security, policy enforcement and governance, multi-agent coordination, and detection and response — and name the gaps honestly.
 
 The eBook's core point on identity: agent identity must be cryptographically rooted, because a label is trivial to forge — perimeter authentication alone cannot secure an autonomous agent. The sharper framing, and the gap this org was built to close: a signed JWT proves *who called an API*, not *what agent made the call*, *which system prompt was active*, *which model version ran*, or *under which policy it was operating*.
 
@@ -99,7 +101,7 @@ The PDF frames agent identity as an authentication problem. The sharper framing:
 | 7 | Decision trace | No accountability for high-stakes decisions |
 | 8 | A2A delegation chain | Orchestrator spoofing, scope laundering |
 | 9 | Supply chain provenance | Compromised dependency runs as approved binary |
-| 10 | HITL approvals | EU AI Act Art. 14 violation |
+| 10 | HITL approvals | EU AI Act Art. 14 violation (obligation applies from Dec 2027) |
 
 The signing key is hardware-sealed in a TEE. Hardware provider auto-selects: `Azure CVM -> SEV-SNP -> TDX -> TPM -> software`. `OPAQUEProvider` is explicit opt-in via `OPAQUE_ATTESTATION_URL` and is never auto-detected. `GPUCCProvider` (NVIDIA H100/H200/Blackwell, CC mode) is not shipped; it is blocked on H100 quota rather than on design.
 
@@ -114,9 +116,11 @@ Four conformance levels address the full deployment range:
 | Level | Name | Requirements | Use case |
 |---|---|---|---|
 | 0 | Software-only | All artifact bindings, Ed25519, transparency log | Development, staging |
-| 1 | TEE-attested | + TEE attestation, `audit_key_sealed: true` | Enterprise production, EU AI Act Art. 15 |
-| 2 | Full stack | + All 10 artifacts, HITL approvals, Phase 2 cMCP, 180-day log retention | Regulated industries, DORA Art. 9 |
+| 1 | TEE-attested | + TEE attestation, `audit_key_sealed: true` | Enterprise production; EU AI Act Art. 15 from Dec 2027 |
+| 2 | Full stack | + All 10 artifacts, HITL approvals, Phase 2 cMCP, 180-day log retention | Regulated industries; DORA Art. 9 today, EU AI Act Art. 12 retention from Dec 2027 |
 | 3 | Post-quantum | + ML-DSA-65 (NIST FIPS 204), ML-KEM-768, SHAKE-256 | Sovereign, classified, long-horizon financial |
+
+**On the EU AI Act dates.** Under the current provisional timeline, the Digital Omnibus amendments defer the high-risk obligations: Annex III systems to around **2 December 2027**, and Annex I (AI embedded in regulated products) to around **August 2028**. The mappings above are unchanged and still correct as mappings; only the date they bite has moved. What is in force today is DORA for financial entities, HIPAA for US healthcare, and — since **2 August 2026** — EU AI Act **Article 50** transparency duties. Verify against the [official implementation timeline](https://artificialintelligenceact.eu/implementation-timeline/) before relying on any of it.
 
 ### Supply Chain Security
 
@@ -178,6 +182,8 @@ If you have built and run agents, you already know two things to be true: they *
 | 100 | **63%** |
 | 1,000 | **99.99% - effectively certain** |
 
+That arithmetic assumes the failures are independent, and they are not: a fleet shares a model, a system prompt, a tool manifest, and usually one policy bundle, so its agents fail together rather than one at a time. Correlation cuts both ways. The 63% at a hundred agents is an overestimate, because correlated agents stay clean together as readily as they fail together. The tail is worse than the table shows, because one prompt injection or one policy gap lands on every agent at once rather than on one. The point survives the correction: per-agent reliability is not a fleet property, and nothing you can buy makes it one.
+
 Multi-agent architecture compounds it: an orchestrator delegates to sub-agents, scope widens down the chain, and no one can prove which agent did what.
 
 This is the layer the **Anthropic *Zero-Trust for AI Agents*** framework calls for: authentication of agent-to-agent communication, RBAC for agent hierarchies, consensus for high-stakes decisions; and where the stack enforces it:
@@ -203,8 +209,10 @@ The goal is that every agent carries attested proof of *what it is* and emits ve
 | NIST SP 800-207 (Zero Trust) | Identity, policy layers | Governance records | Tool-level ZT enforcement | Fleet policy, observability |
 | OWASP Agentic AI Top 10 (2026) | Addresses all 10 ASI categories with deterministic, attestable controls | Evidence chain | MCP call enforcement | Runtime governance |
 | NIST AI RMF 1.0 | GOVERN, MAP, MEASURE, MANAGE | MEASURE, MANAGE | GOVERN (tool policy) | Full RMF lifecycle |
-| EU AI Act Art. 13-15 | Transparency (Art. 13), HITL (Art. 14), supports Art. 15 (cybersecurity) at Level 1 | Compliance evidence | Enforcement evidence | Governance lifecycle |
-| DORA Art. 9 | Attestation + 180-day log retention (Level 2) | Immutable audit chain | Per-call audit records | Risk management |
+| **DORA Art. 9** *(in force)* | Attestation + 180-day log retention (Level 2) | Immutable audit chain | Per-call audit records | Risk management |
+| **HIPAA Security Rule** *(in force)* | § 164.312(a)(1) access control, (b) audit controls, (c)(1) integrity, § 164.308(a)(5) human oversight | Immutable audit chain | Per-call audit records | Runtime governance |
+| **EU AI Act Art. 50** *(in force 2 Aug 2026)* | **Gap.** No disclosure or synthetic-marking field in the manifest yet; binding provenance marking to the attested agent is proposed | Adjacent only: a C2PA manifest on the output may reference the Trust Record (spec §4.1), not yet a normative profile | Not addressed | Art. 50(1) interaction notice and Art. 50(3) emotion-recognition acknowledgement enforced in the `agent-os` transparency module |
+| EU AI Act Art. 12-15 *(Annex III from Dec 2027)* | Transparency (Art. 13), HITL (Art. 14), supports Art. 15 (cybersecurity) at Level 1 | Compliance evidence | Enforcement evidence | Governance lifecycle |
 | MITRE ATL | Supply chain, model identity, prompt constraints | Verifiable evidence | Policy enforcement | Detection foundation |
 | SLSA | Level 2 build provenance | `build_provenance` field | SLSA-aware claims | Supply chain |
 | CoSAI WS1 | Secure-by-Design Principles, MCP Security Taxonomy | | MCP enforcement | WS4 governance |

@@ -11,7 +11,7 @@ Anthropic's [*Zero-Trust for AI Agents*](https://claude.com/blog/zero-trust-for-
 
 agentrust-io stands on two things that already exist and work.
 
-**1 · Policy — the Agent Governance Toolkit (AGT).** Created by Imran Siddique (now OPAQUE's Chief Platform Officer) at Microsoft and open-sourced under MIT: 5,100+ stars, 830+ forks since its April 2026 public launch; 10/10 OWASP Agentic Top 10 coverage; ships trust-score decay, scope-chain delegation (monotonic narrowing), and a multi-agent fleet daemon; now being considered by AAIF for standardization.
+**1 · Policy — the Agent Governance Toolkit (AGT).** Created by Imran Siddique (now OPAQUE's Chief Platform Officer) at Microsoft and open-sourced under MIT: 5,100+ stars, 830+ forks since its April 2026 public launch; 10/10 OWASP Agentic Top 10 coverage; ships trust-score decay, scope-chain delegation (monotonic narrowing), and a multi-agent fleet daemon. AGT remains a Microsoft-owned MIT project; any standards home for it is Microsoft's to announce, not ours.
 
 **2 · Enforcement — a confidential runtime, pluggable by design.** The policy bundle is sealed and measured inside a TEE on the confidential-computing silicon you already operate — Intel TDX, AMD SEV-SNP, NVIDIA CC, or TPM. The OPAQUE Confidential AI is the hardware-rooted, managed reference implementation; an operator can bring its own.
 
@@ -27,7 +27,7 @@ Three components, composing standards you already trust (MCP, A2A, SPIFFE, SLSA,
 | **cMCP** — Confidential MCP Runtime | Runs inside the confidential runtime. Every MCP tool call is evaluated against a Cedar policy bundle inside a TEE; the policy-bundle hash is measured into the hardware attestation report before any code runs. A swapped policy or a CVE in the evaluator is structurally detectable — not just prohibited. |
 | **TRACE** — the portable record | The signed envelope that binds every other standard's evidence into one verifiable record (see below). |
 
-The stack runs at one of four conformance levels (L0–L3): software-only → TEE-attested → full-stack / regulated (DORA, EU AI Act) → post-quantum (ML-DSA-65) for sovereign and classified deployments.
+The stack runs at one of four conformance levels (L0–L3): software-only → TEE-attested → full-stack / regulated (DORA and HIPAA today; EU AI Act high-risk obligations from December 2027) → post-quantum (ML-DSA-65) for sovereign and classified deployments.
 
 ## TRACE — the envelope that ties it together
 

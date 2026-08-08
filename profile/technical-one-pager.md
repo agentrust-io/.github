@@ -31,7 +31,7 @@ The stack runs at one of four conformance levels (L0–L3): software-only → TE
 
 ## TRACE — the envelope that ties it together
 
-TRACE (Trust Runtime Attestation and Compliance Evidence) is the portable governance record at the center of the stack: a single attestation envelope (EAT/JWT, per the IETF RATS model) that **carries the other standards' evidence** — build provenance (SLSA), workload identity (SPIFFE SVID), model inventory (AIBOM), a cryptographic bill of materials (CBOM — the crypto libraries and algorithms in use), and the agent's tool-call transcript — cryptographically bound and anchored in an append-only transparency log. One verifiable record that proves **what an agent was** and **what it did**, reconstructable after the fact and confirmable by a party with no reason to trust the operator. Open spec; we intend to submit it to AAIF.
+TRACE (Trust Runtime Attestation and Compliance Evidence) is the portable governance record at the center of the stack: a single attestation envelope (EAT/JWT, per the IETF RATS model) that **carries the other standards' evidence** — build provenance (SLSA), workload identity (SPIFFE SVID), model inventory (AIBOM), a cryptographic bill of materials (CBOM — the crypto libraries and algorithms in use), and the agent's tool-call transcript — cryptographically bound and anchored in an append-only transparency log. One verifiable record that proves **what an agent was** and **what it did**, reconstructable after the fact and confirmable by a party with no reason to trust the operator. Open spec, going to the Linux Foundation as its own series.
 
 ## About OPAQUE
 

@@ -17,7 +17,7 @@ agentrust-io is the open trust layer built to close it: replacing "we have guard
 The specifications, SDKs, and conformance tests are free and open. Begin in software; advance to hardware-backed and post-quantum assurance as requirements demand.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0_%2F_MIT_%2F_CC_BY_4.0-blue.svg)](#projects)
-[![AAIF](https://img.shields.io/badge/Targeting-AAIF_%2F_Linux_Foundation-6366f1)](https://agenticai.foundation)
+[![Linux Foundation](https://img.shields.io/badge/TRACE-Linux_Foundation_series_(in_formation)-6366f1)](https://www.linuxfoundation.org/)
 [![CC Summit](https://img.shields.io/badge/Launched-CC_Summit_Jun_2026-7c3aed)](https://confidentialcomputingsummit.com)
 
 > **The 2-minute version:** [technical one-pager](technical-one-pager.md).
@@ -51,7 +51,7 @@ The specifications, SDKs, and conformance tests are free and open. Begin in soft
 
 These projects are developed in the open. We intend to propose them to recognized open standards bodies; we're inviting the ecosystem to shape them:
 
-- **TRACE**: we intend to submit it to the **Agentic AI Foundation (AAIF) under the Linux Foundation**, where OPAQUE is a member and participates in the Observability and Traceability working group. The submission has not been filed yet; this page will name the date when it is. Founding co-editor seats are open now.
+- **TRACE**: going to the **Linux Foundation as its own series**, "TRACE Specification, a Series of LF Projects, LLC". Formation is in progress with the LF standards team; governance has been brought into the shape LF requires ([trace-spec#127](https://github.com/agentrust-io/trace-spec/pull/127)). This supersedes the earlier plan to co-host under CoSAI or under the LF entity hosting MCP. Founding co-editor seats are open now.
 - **Agent Manifest**: we intend to submit it through CoSAI under OASIS Open, building on CoSAI Workstream 4.
 - **AGT (Agent Governance Toolkit)**: the runtime governance engine this stack builds on, created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license: [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit).
 

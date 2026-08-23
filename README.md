@@ -6,3 +6,4 @@ This repository contains org-wide community health files for the [agentrust-io](
 - [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md): applies to all repos in this org
 - [`CONTRIBUTING.md`](CONTRIBUTING.md): default contributing guide
 - [`SECURITY.md`](SECURITY.md): default security policy
+- [`SPONSORS.md`](SPONSORS.md): organization-wide sponsor recognition policy

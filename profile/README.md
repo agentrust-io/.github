@@ -16,6 +16,13 @@ agentrust-io is the open trust layer built to close it: replacing "we have guard
 
 The specifications, SDKs, and conformance tests are free and open. Begin in software; advance to hardware-backed and post-quantum assurance as requirements demand.
 
+**OPAQUE Systems is a founding engineering and infrastructure sponsor and an
+active contributor.** Sponsorship supports the work but does not confer
+ownership of AgenTrust projects or governance authority over their technical
+decisions. Each repository's licence, charter, maintainer list, and published
+governance process define its legal and technical stewardship. See the
+[organization sponsor policy](https://github.com/agentrust-io/.github/blob/main/SPONSORS.md).
+
 [![License](https://img.shields.io/badge/License-Apache_2.0_%2F_MIT_%2F_CC_BY_4.0-blue.svg)](#projects)
 [![Linux Foundation](https://img.shields.io/badge/TRACE-Linux_Foundation_series_(in_formation)-6366f1)](https://www.linuxfoundation.org/)
 [![CC Summit](https://img.shields.io/badge/Launched-CC_Summit_Jun_2026-7c3aed)](https://confidentialcomputingsummit.com)

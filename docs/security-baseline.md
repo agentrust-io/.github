@@ -25,6 +25,6 @@ Each repo should also carry, matching cmcp / ca2a / agent-manifest:
 
 Copy-paste versions of these, plus the org-level settings (secret scanning, push protection, Dependabot alerts, and the branch-protection ruleset), are in the internal security hardening bundle.
 
-## Note
+## Action pinning
 
-All third-party actions must be pinned to a commit SHA before merge. The reusable workflow currently uses version tags marked with `TODO`.
+All actions first-party (`actions/*`) and third-party (e.g. `anchore/sbom-action`) are pinned to a commit SHA with a `# vX.Y.Z` comment for readability. This applies org-wide; see `reusable-python-security.yml` and `sbom.yml` in cmcp / ca2a / trace-spec for the pattern. When bumping a version, update both the SHA and the comment together.

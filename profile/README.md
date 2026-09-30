@@ -31,15 +31,9 @@ governance process define its legal and technical stewardship. See the
 
 > **The 2-minute version:** [technical one-pager](technical-one-pager.md).
 
-> ### AgenTrust Fellowship 2026: applications 1 to 29 August
+> ### New here? Start with a good first issue
 >
-> OPAQUE is funding **three to five fellows** to work on these projects for six months, part-time at 20 hours per week, paid. The work is here in the open repos; OPAQUE is the employer and funder, and the fellowship exists to put more hands on the open specifications rather than on a product.
->
-> For security engineers, distributed systems researchers, AI governance and compliance professionals, and Ph.D. students. Fellows contribute code and specifications and complete a public technical artifact such as a paper or a conference talk. Mentored by Imran Siddique, Chief Platform Officer at OPAQUE and creator of AGT.
->
-> Selection is on a **technical proposal**, so start from the work rather than the pitch: [open issues labelled `fellowship`](https://github.com/search?q=org%3Aagentrust-io+is%3Aissue+is%3Aopen+label%3Afellowship&type=issues) across trace-spec, cmcp, cA2A, and agent-manifest are real, currently-open items. Cohort starts September 2026.
->
-> [**Read the announcement**](https://www.opaque.co/resources/articles/opaque-announces-applications-for-agentrust-fellowship-to-advance-open-standards-for-verifiable-ai-agents)
+> [Open issues labelled `good first issue`](https://github.com/search?q=org%3Aagentrust-io+is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22&type=issues) are scoped to be finished in a sitting or two, and each one names the files involved. When you want something bigger, try [`help wanted`](https://github.com/search?q=org%3Aagentrust-io+is%3Aissue+is%3Aopen+label%3A%22help+wanted%22&type=issues). Comment on an issue to claim it, and a maintainer will review your pull request.
 
 ## Projects
 

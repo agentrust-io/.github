@@ -45,16 +45,18 @@ governance process define its legal and technical stewardship. See the
 
 | Project | Description | License | Status |
 |---------|-------------|---------|--------|
-| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.10.0 |
-| [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Public, v0.3.0 |
-| [ca2a](https://github.com/agentrust-io/ca2a) | cA2A: Confidential Agent-to-Agent. Attested, attenuated delegation profile on top of A2A, with a sealed peer channel and offline-verifiable provenance. | MIT | Public, alpha (v0.1.0a1) |
-| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open attestation standard: an EAT (RFC 9711) profile carried in a JWT or CWT/COSE envelope, plus the `agentrust-trace` reference SDK. | Dual: CC BY 4.0 (spec text), Apache 2.0 (code) | Public, spec v0.2, SDK v0.6.0 |
-| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.4.1 |
+| [agent-manifest](https://github.com/agentrust-io/agent-manifest) | Agent Manifest SDK: cryptographically bind all 10 artifacts defining an agent at deployment. Python. | Apache 2.0 | Public, v0.13.1 |
+| [cmcp](https://github.com/agentrust-io/cmcp) | cMCP: Confidential MCP Runtime. Hardware-attested policy enforcement for MCP tool calls inside a TEE. | MIT | Public, v0.6.0 |
+| [ca2a](https://github.com/agentrust-io/ca2a) | cA2A: Confidential Agent-to-Agent. Attested, attenuated delegation profile on top of A2A, with a sealed peer channel and offline-verifiable provenance. | MIT | Public, v0.3.1 |
+| [trace-spec](https://github.com/agentrust-io/trace-spec) | TRACE: Trust Runtime Attestation and Compliance Evidence. Open attestation standard: an EAT (RFC 9711) profile carried in a JWT or CWT/COSE envelope, plus the `agentrust-trace` reference SDK. | Dual: CC BY 4.0 (spec text), Apache 2.0 (code) | Public, spec v0.2, SDK v0.11.0 |
+| [trace-tests](https://github.com/agentrust-io/trace-tests) | TRACE conformance test suite for certification. | Apache 2.0 | Public, v0.6.1 |
 | [examples](https://github.com/agentrust-io/examples) | End-to-end integration examples: financial services, healthcare, multi-tenant SaaS, industrial embodied AI, and agent-to-agent delegation. | MIT | Public |
 | [integrations](https://github.com/agentrust-io/integrations) | Ecosystem adapters: third-party governance runtimes to TRACE claims, plus coding-agent plugins. | Apache 2.0 | Public |
 | [demos](https://github.com/agentrust-io/demos) | Runnable demos and the web console used for walkthroughs. | MIT | Public |
 | [awesome-ai-governance](https://github.com/agentrust-io/awesome-ai-governance) | Community-curated list of tools, frameworks, standards, and resources for governing autonomous AI agents. | CC0 1.0 | Public, launched CC Summit Jun 23 |
-| [trace-registry](https://github.com/agentrust-io/trace-registry) | Merkle registry of TRACE claim anchors, with a normative anchor and inclusion-proof format. | CC BY 4.0 | **Private.** Publishing the anchor format is tracked in [trace-spec#111](https://github.com/agentrust-io/trace-spec/issues/111) |
+| [trace-registry](https://github.com/agentrust-io/trace-registry) | Merkle registry of TRACE claim anchors, with a normative anchor and inclusion-proof format. | Apache 2.0 (code), CC BY 4.0 (data) | Public. Anchor format: [registry-anchor-v1](https://github.com/agentrust-io/trace-spec/blob/main/spec/registry-anchor-v1.md) |
+| [weight-custody-manifest](https://github.com/agentrust-io/weight-custody-manifest) | Weight Custody Manifest: open specification for protecting model weights deployed into customer-controlled or sovereign infrastructure. | Apache 2.0 | Public, v0.28.5 |
+| [agentrust-telemetry](https://github.com/agentrust-io/agentrust-telemetry) | Backend-neutral governance telemetry and verifiable evidence for AI-agent runtimes. | MIT | Public, alpha (v0.1.0a5) |
 
 ## Principles
 
@@ -74,9 +76,8 @@ agentrust-io is built as an open coalition, not a single-vendor stack; we're inv
 - **Confirmed founding partner:** Technology Innovation Institute (TII).
 - **Co-editor seats are open**, including the per-surface vendor annex slots listed in [§4.4 of the TRACE spec](https://github.com/agentrust-io/trace-spec/blob/main/spec/trace-v0.2.md). We name partners here once they have confirmed, not once we have asked.
 
-**Fellows.** OPAQUE funds three to five paid, part-time fellowships on these projects, applications 1 to 29 August 2026. See the callout at the top of this page.
-
 **Contributors & implementers.** You don't need a seat to build with us:
+- New to the projects? Pick up a [good first issue](https://github.com/search?q=org%3Aagentrust-io+is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22&type=issues).
 - If you build an agent framework or governance tooling (LangChain, CrewAI, LlamaIndex, Haystack, PydanticAI, Dify, Cisco AI Defense, or anything else in the ecosystem), bring an adapter.
 - Bring your platform's attestation root (TEE, GPU, TPM, or managed runtime) as a provider.
 - Pilot cMCP at your MCP tool-call boundary; run the conformance suite and tell us where it bends.
@@ -175,9 +176,9 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 
 **[TRACE Registry](https://github.com/agentrust-io/trace-registry)** is an append-only Merkle registry of TRACE claim anchors, built on RFC 6962 (Certificate Transparency) trees so a third party can verify inclusion without trusting the registry operator. Git's immutable commit history is the tamper-evident proof.
 
-**The repository is currently private, and that is a gap rather than a design choice.** Independent verification needs the anchor and inclusion-proof format, which is specified normatively but not yet published. Publishing it is tracked in [trace-spec#111](https://github.com/agentrust-io/trace-spec/issues/111). Until then, treat independent anchor verification as documented-but-not-yet-exercisable by outside parties.
+The repository and its anchor and inclusion-proof format ([registry-anchor-v1](https://github.com/agentrust-io/trace-spec/blob/main/spec/registry-anchor-v1.md)) are public, so an outside party can verify an anchor without asking us for anything.
 
-**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 5,100+ stars, 10/10 OWASP Agentic Top 10) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
+**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 6,300+ stars; 7 of the OWASP Agentic Top 10 covered fully and 3 partially, self-assessed) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 
 ### Multi-Agent Coordination Governance
 

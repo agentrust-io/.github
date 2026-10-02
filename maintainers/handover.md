@@ -65,7 +65,7 @@ Acceptance evidence:
 | Evidence | URL / verified fact | Date | Result / remaining action |
 |---|---|---|---|
 | Repository permissions | Connector permission reads for all 22 primary/backup assignments | 2026-10-02 | All write/admin; specialist and organization-owner memberships unverified |
-| Deployment | Rollout PRs | Pending | Independent maintainer review required |
+| Deployment | [TRACE #462](https://github.com/agentrust-io/trace-spec/pull/462) merged; ten other rollout PRs remain open | 2026-10-02 | Remaining independent reviews and registry manual merge required |
 | Handover start/end | Not set | Pending | Await deployment, acceptance and access verification |
 
 ## Consolidation remaining work
@@ -91,3 +91,13 @@ TRACE import is merged. Preserve [trace-tests PR #137](https://github.com/agentr
 Auto-merge is enabled for ten rollout PRs; trace-registry has auto-merge disabled and requires a normal maintainer merge after independent review. The rollout is not deployed merely because its PR exists. CI validates the policies and gate boundaries; the handover week still awaits accepted capacity and verified private access.
 
 [TRACE #462](https://github.com/agentrust-io/trace-spec/pull/462) prepares the separate conformance publisher with publication disabled until its exact environment/trusted-publisher binding is verified.
+
+## Latest cutover evidence, 2026-10-02
+
+TRACE ownership/publisher preparation [#462](https://github.com/agentrust-io/trace-spec/pull/462) merged. Publisher bindings and environment approvals remain unverified; publication enable variables were not changed.
+
+The original vector work is preserved in [TRACE draft #463](https://github.com/agentrust-io/trace-spec/pull/463), attributed to dinakarjs and linked to the still-open original #137. Thirty source blobs remain exact; one README range was rewritten to satisfy destination house style. The independent JavaScript cross-check passed all 27 outcomes, nine canonical preimages and nine batch roots. Verifier review remains outstanding.
+
+[trace-tests moved notice #138](https://github.com/agentrust-io/trace-tests/pull/138) is open with auto-merge enabled. Original publisher/site services remain active. Examples/demos archival is ready for a final queue/head check and an administrator action; the connector exposes no archive capability.
+
+Ten approval-boundary tests passed; 45 published rollout file hashes matched the prepared contents. The final security-approval mutant was rejected by four tests. Integration source links were repaired without changing pinned refs or excluding checks. Remaining fuzz runs do not establish completed validation until their results are recorded.

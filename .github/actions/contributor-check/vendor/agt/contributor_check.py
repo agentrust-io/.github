@@ -21,6 +21,7 @@ import argparse
 import json
 import math
 import os
+import random
 import subprocess
 import sys
 import time
@@ -28,7 +29,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
@@ -67,6 +68,22 @@ def _get_token() -> str:
     return token
 
 
+# Bounded retry, transient failures only. A 404 is an answer and is never
+# retried. A rate limit and a server error are retried within the bound and,
+# if they outlast it, are reported as themselves: the final stderr line names
+# the cause, which is what contributor_check_action.py surfaces when a check
+# cannot be executed. See agentrust-io/.github#27.
+_RETRY_MAX_ATTEMPTS = 3
+_RETRY_BASE_SECONDS = 1.0
+_RETRY_MAX_SLEEP_SECONDS = 60.0
+
+
+def _retry_sleep_seconds(attempt: int) -> float:
+    """Full-jitter exponential backoff: random in [0, base * 2**attempt)."""
+    upper = min(_RETRY_BASE_SECONDS * (2 ** attempt), _RETRY_MAX_SLEEP_SECONDS)
+    return random.uniform(0, upper)
+
+
 def _api(path: str, params: dict[str, str] | None = None) -> Any:
     """Call the GitHub REST API and return parsed JSON."""
     url = f"https://api.github.com{path}"
@@ -79,19 +96,65 @@ def _api(path: str, params: dict[str, str] | None = None) -> Any:
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("X-GitHub-Api-Version", "2022-11-28")
 
-    for attempt in range(3):
+    last = _RETRY_MAX_ATTEMPTS - 1
+    for attempt in range(_RETRY_MAX_ATTEMPTS):
         try:
             with urlopen(req, timeout=15) as resp:
                 return json.loads(resp.read())
         except HTTPError as exc:
-            if exc.code == 403 and attempt < 2:
-                wait = int(exc.headers.get("Retry-After", "10"))
-                wait = min(max(wait, 5), 60)
-                print(f"  Rate limited, waiting {wait}s...", file=sys.stderr)
-                import time; time.sleep(wait)
-                continue
+            # 404 is an answer, not a failure. Never retried.
             if exc.code == 404:
                 return None
+            # GitHub's documented rate-limit envelope: 403 with Retry-After.
+            # Honour it, clamped to a sane band.
+            if exc.code == 403:
+                if attempt < last:
+                    wait = int(exc.headers.get("Retry-After", "10"))
+                    wait = min(max(wait, 5), 60)
+                    print(f"  Rate limited, waiting {wait}s...", file=sys.stderr)
+                    time.sleep(wait)
+                    continue
+                print(
+                    f"  Rate limited by the GitHub API and still limited after "
+                    f"{_RETRY_MAX_ATTEMPTS} attempts",
+                    file=sys.stderr,
+                )
+                raise
+            # 5xx is transient on GitHub's side.
+            if 500 <= exc.code < 600:
+                if attempt < last:
+                    wait = _retry_sleep_seconds(attempt)
+                    print(
+                        f"  Server error {exc.code}, retrying in {wait:.1f}s...",
+                        file=sys.stderr,
+                    )
+                    time.sleep(wait)
+                    continue
+                print(
+                    f"  GitHub API returned {exc.code} on all "
+                    f"{_RETRY_MAX_ATTEMPTS} attempts",
+                    file=sys.stderr,
+                )
+                raise
+            # Anything else is the API answering. Report it as itself.
+            raise
+        except URLError as exc:
+            # Network-layer failures: DNS, TCP reset, TLS abort, socket
+            # timeout. The timeout=15 above raises here, which is the case
+            # that produced the UNKNOWN labels in #27.
+            if attempt < last:
+                wait = _retry_sleep_seconds(attempt)
+                print(
+                    f"  Network error ({exc.reason}), retrying in {wait:.1f}s...",
+                    file=sys.stderr,
+                )
+                time.sleep(wait)
+                continue
+            print(
+                f"  Network error ({exc.reason}) on all "
+                f"{_RETRY_MAX_ATTEMPTS} attempts",
+                file=sys.stderr,
+            )
             raise
 
 

@@ -2,10 +2,10 @@ name: Maintainer coverage
 
 on:
   pull_request:
-    paths: ['maintainers/**', 'scripts/maintainer-roster*', '.github/maintainers.json', '.github/CODEOWNERS', '.github/workflows/maintainer-coverage.yml']
+    paths: ['maintainers/**', 'scripts/maintainer-roster*', '.github/maintainers.json', '.github/CODEOWNERS', '.github/workflows/maintainer-coverage.yml', '.github/workflows/require-maintainer-approval.yml']
   push:
     branches: [main]
-    paths: ['maintainers/**', 'scripts/maintainer-roster*', '.github/maintainers.json', '.github/CODEOWNERS', '.github/workflows/maintainer-coverage.yml']
+    paths: ['maintainers/**', 'scripts/maintainer-roster*', '.github/maintainers.json', '.github/CODEOWNERS', '.github/workflows/maintainer-coverage.yml', '.github/workflows/require-maintainer-approval.yml']
   schedule:
     - cron: '0 9 * * *'
   workflow_dispatch:

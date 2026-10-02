@@ -73,3 +73,21 @@ Acceptance evidence:
 Examples and demos imports, consumer updates and moved notices are merged. Their open issue/PR queues were empty on 2026-10-02. Recheck immediately before archiving; preserve repositories, releases and historical URLs. The available connector cannot archive repositories.
 
 TRACE import is merged. Preserve [trace-tests PR #137](https://github.com/agentrust-io/trace-tests/pull/137) and its review: it remains unmerged. Port it to conformance or merge and import it before archival. Keep the original PyPI publisher and tests.agentrust-io.com deployment active until separately verified replacements exist. The specification website must not be overwritten by a second gh-deploy. See [TRACE cutover](https://github.com/agentrust-io/trace-spec/blob/main/docs/repository-consolidation.md).
+
+## Rollout pull requests
+
+- [.github #52](https://github.com/agentrust-io/.github/pull/52)
+- [agent-manifest #484](https://github.com/agentrust-io/agent-manifest/pull/484)
+- [cmcp #720](https://github.com/agentrust-io/cmcp/pull/720)
+- [ca2a #223](https://github.com/agentrust-io/ca2a/pull/223)
+- [trace-spec #462](https://github.com/agentrust-io/trace-spec/pull/462)
+- [trace-registry #112](https://github.com/agentrust-io/trace-registry/pull/112)
+- [weight-custody-manifest #178](https://github.com/agentrust-io/weight-custody-manifest/pull/178)
+- [integrations #273](https://github.com/agentrust-io/integrations/pull/273)
+- [agentrust-telemetry #77](https://github.com/agentrust-io/agentrust-telemetry/pull/77)
+- [awesome-ai-governance #133](https://github.com/agentrust-io/awesome-ai-governance/pull/133)
+- [agentrust-io.github.io #96](https://github.com/agentrust-io/agentrust-io.github.io/pull/96)
+
+Auto-merge is enabled for ten rollout PRs; trace-registry has auto-merge disabled and requires a normal maintainer merge after independent review. The rollout is not deployed merely because its PR exists. CI validates the policies and gate boundaries; the handover week still awaits accepted capacity and verified private access.
+
+[TRACE #462](https://github.com/agentrust-io/trace-spec/pull/462) prepares the separate conformance publisher with publication disabled until its exact environment/trusted-publisher binding is verified.

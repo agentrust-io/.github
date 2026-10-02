@@ -94,3 +94,12 @@ test('bootstrap is limited to its reviewed initial base; later missing policy fa
   assert.equal((await run({missing:true,base:'initial-base',reviews:[review('owner-a')]})).length,0);
   await assert.rejects(run({missing:true,base:'reviewed-base'}), /Not found/);
 });
+
+test('organization consumer matches canonical policy, owners and reviewed gate', async () => {
+  const snapshot = {
+    policy: JSON.parse(await fs.readFile(new URL('../.github/maintainers.json', import.meta.url), 'utf8')),
+    codeowners: await fs.readFile(new URL('../.github/CODEOWNERS', import.meta.url), 'utf8'),
+    gate: await fs.readFile(new URL('../.github/workflows/require-maintainer-approval.yml', import.meta.url), 'utf8'),
+  };
+  assert.deepEqual(detectDrift(roster.repositories['.github'], snapshot, template), []);
+});

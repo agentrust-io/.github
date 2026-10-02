@@ -1,0 +1,378 @@
+{
+  "schema": 1,
+  "organization": "agentrust-io",
+  "verified_at": "2026-10-02",
+  "global_maintainers": [
+    "imran-siddique",
+    "pforest",
+    "Qiang-Xu"
+  ],
+  "administration": {
+    "primary": "Qiang-Xu",
+    "backup": "pforest",
+    "repository_permissions_verified": true,
+    "organization_owner_membership": "unverified"
+  },
+  "repositories": {
+    ".github": {
+      "primary": "Qiang-Xu",
+      "backup": "pforest",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "Qiang-Xu": "admin",
+        "pforest": "admin"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": ".github",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @pforest @Qiang-Xu\n",
+      "release": {
+        "primary": "Qiang-Xu",
+        "backup": "pforest",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "18334ccc22165be51687c57a5b103d06538535f4"
+    },
+    "agent-manifest": {
+      "primary": "rajnisht7",
+      "backup": "zohebk8s",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "rajnisht7": "write",
+        "zohebk8s": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "agent-manifest",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "carloshvp",
+          "zohebk8s",
+          "pforest",
+          "Qiang-Xu",
+          "rajnisht7"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Default owners for everything\n* @agentrust-io/maintainers @carloshvp @zohebk8s @rajnisht7\n\n# Spec changes require spec-editor review\n/spec/ @agentrust-io/spec-editors\n\n# SDK changes require SDK maintainer review\n/python/ @agentrust-io/sdk-maintainers\n\n# CI changes require maintainer review\n/.github/ @agentrust-io/maintainers @carloshvp @zohebk8s @rajnisht7\n",
+      "release": {
+        "primary": "rajnisht7",
+        "backup": "zohebk8s",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "unverified",
+      "bootstrap_base": "ed107875da35a7865db11eaa0a2fb6e782f05492"
+    },
+    "cmcp": {
+      "primary": "carloshvp",
+      "backup": "zohebk8s",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "carloshvp": "write",
+        "zohebk8s": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "cmcp",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "carloshvp",
+          "qubeena07",
+          "zohebk8s",
+          "pforest",
+          "Qiang-Xu",
+          "rajnisht7",
+          "podcastinator",
+          "AaronRoeF"
+        ],
+        "security_paths": [
+          "src/cmcp_runtime/audit/",
+          "src/cmcp_runtime/tee/",
+          "src/cmcp_runtime/policy/",
+          "src/cmcp_verify/"
+        ],
+        "security_approvals": 2
+      },
+      "codeowners": "# Default owners for all files\n* @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\n\n# Security paths require two current-head maintainer approvals in the policy gate.\n# GitHub CODEOWNERS alone accepts any one owner on a line.\nsrc/cmcp_runtime/audit/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\nsrc/cmcp_runtime/tee/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\nsrc/cmcp_runtime/policy/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\nsrc/cmcp_verify/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\n\n# CI/CD workflow changes\n.github/workflows/ @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\n\n# Package configuration\npyproject.toml @agentrust-io/maintainers @carloshvp @zohebk8s @qubeena07 @rajnisht7\n",
+      "release": {
+        "primary": "carloshvp",
+        "backup": "zohebk8s",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "316ecf3176cb2d72c4f26060e1709016dd8f0b16"
+    },
+    "ca2a": {
+      "primary": "carloshvp",
+      "backup": "zohebk8s",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "carloshvp": "write",
+        "zohebk8s": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "ca2a",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "podcastinator",
+          "carloshvp",
+          "Qiang-Xu",
+          "zohebk8s",
+          "AaronRoeF"
+        ],
+        "security_paths": [
+          "src/ca2a_runtime/delegation/",
+          "src/ca2a_runtime/channel/",
+          "src/ca2a_runtime/tee/",
+          "src/ca2a_verify/"
+        ],
+        "security_approvals": 2
+      },
+      "codeowners": "# Default owners for all files\n* @agentrust-io/maintainers @carloshvp @zohebk8s\n\n# Security paths require two current-head maintainer approvals in the policy gate.\n# GitHub CODEOWNERS alone accepts any one owner on a line.\nsrc/ca2a_runtime/delegation/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s\nsrc/ca2a_runtime/channel/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s\nsrc/ca2a_runtime/tee/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s\nsrc/ca2a_verify/ @agentrust-io/security-reviewers @agentrust-io/maintainers @carloshvp @zohebk8s\n\n# CI/CD workflow changes\n.github/workflows/ @agentrust-io/maintainers @carloshvp @zohebk8s\n\n# Package configuration\npyproject.toml @agentrust-io/maintainers @carloshvp @zohebk8s\n",
+      "release": {
+        "primary": "carloshvp",
+        "backup": "zohebk8s",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "b60768502822f93159ad5f4f254110676d32703e"
+    },
+    "trace-spec": {
+      "primary": "lywinged",
+      "backup": "rajnisht7",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "lywinged": "write",
+        "rajnisht7": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "trace-spec",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "lywinged",
+          "pforest",
+          "Qiang-Xu",
+          "rajnisht7"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Default owners for all files\n* @agentrust-io/maintainers @lywinged @rajnisht7\n\n# CI/CD workflow changes\n.github/workflows/ @agentrust-io/maintainers @lywinged @rajnisht7\n\n# Conformance suite retains its existing maintainer review ownership.\n/conformance/ @agentrust-io/maintainers @lywinged @rajnisht7\n/.github/workflows/conformance-*.yml @agentrust-io/maintainers @lywinged @rajnisht7\n",
+      "release": {
+        "primary": "lywinged",
+        "backup": "rajnisht7",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "c5cfa00e1c62ca1b4da2b999fc16e943dad09d90"
+    },
+    "trace-registry": {
+      "primary": "Qiang-Xu",
+      "backup": "pforest",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "Qiang-Xu": "admin",
+        "pforest": "admin"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "trace-registry",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Default owners for everything.\n* @agentrust-io/opaque-lt\n\n# The registry itself is append-only and is the product. Any change here needs\n# owner review, including one that only looks like a reformat: rewriting a\n# published entry diverges the commit hashes mirrors have already observed,\n# which is the tamper-evidence this repository exists to provide.\n/registry/ @agentrust-io/opaque-lt\n/schema/ @agentrust-io/opaque-lt\n\n# Anchor format and verification semantics: a change here can invalidate proofs\n# third parties already hold.\n/docs/anchor-format.md @agentrust-io/opaque-lt\n/src/ @agentrust-io/opaque-lt\n/tools/ @agentrust-io/opaque-lt\n\n# CI, publishing, and governance.\n/.github/ @agentrust-io/opaque-lt\n",
+      "release": {
+        "primary": "Qiang-Xu",
+        "backup": "pforest",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "unverified",
+      "bootstrap_base": "fc68dee2dabba8963d0324485856400e1198e475"
+    },
+    "weight-custody-manifest": {
+      "primary": "Qiang-Xu",
+      "backup": "pforest",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "Qiang-Xu": "admin",
+        "pforest": "admin"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "weight-custody-manifest",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "podcastinator",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Default owners for everything\n* @agentrust-io/maintainers\n\n# Spec + threat model require spec-editor review\n/SPEC.md @agentrust-io/spec-editors\n/THREAT-MODEL.md @agentrust-io/spec-editors\n\n# SDK changes require SDK maintainer review\n/python/ @agentrust-io/sdk-maintainers\n\n# CI and governance changes require maintainer review\n/.github/ @agentrust-io/maintainers\n",
+      "release": {
+        "primary": "Qiang-Xu",
+        "backup": "pforest",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "unverified",
+      "bootstrap_base": "d9dce67687275ff5378cfc4e48d81fb5c8a95732"
+    },
+    "integrations": {
+      "primary": "carloshvp",
+      "backup": "Qiang-Xu",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "carloshvp": "write",
+        "Qiang-Xu": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "integrations",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "podcastinator",
+          "carloshvp",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "* @imran-siddique @carloshvp @agentrust-io/maintainers\n\n# Reviewed first-party scenarios and demonstrations.\n/examples/ @imran-siddique @carloshvp @agentrust-io/maintainers\n/demos/ @imran-siddique @pforest @podcastinator @Qiang-Xu @agentrust-io/maintainers\n/.github/workflows/examples-* @imran-siddique @carloshvp @agentrust-io/maintainers\n/.github/workflows/demos-* @imran-siddique @pforest @podcastinator @Qiang-Xu @agentrust-io/maintainers\n",
+      "release": {
+        "primary": "carloshvp",
+        "backup": "Qiang-Xu",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "06c1dd113d86ae94844bcc8840b5c8c78bc62e83"
+    },
+    "agentrust-telemetry": {
+      "primary": "Qiang-Xu",
+      "backup": "pforest",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "Qiang-Xu": "write",
+        "pforest": "write"
+      },
+      "gate_enabled": false,
+      "policy": {
+        "schema": 1,
+        "repository": "agentrust-telemetry",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "* @imran-siddique @agentrust-io/maintainers\n\n/spec/ @imran-siddique @agentrust-io/maintainers\n/conformance/ @imran-siddique @agentrust-io/maintainers\n/src/agentrust_telemetry/validation.py @imran-siddique @agentrust-io/maintainers\n/src/agentrust_telemetry/context.py @imran-siddique @agentrust-io/maintainers\n/.github/workflows/ @imran-siddique @agentrust-io/maintainers\n",
+      "release": {
+        "primary": "Qiang-Xu",
+        "backup": "pforest",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "aa71016a031eabc2e8561f203f8fc6716cc46df7"
+    },
+    "awesome-ai-governance": {
+      "primary": "pforest",
+      "backup": "Qiang-Xu",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "pforest": "write",
+        "Qiang-Xu": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "awesome-ai-governance",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "podcastinator",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @pforest @Qiang-Xu\n",
+      "release": {
+        "primary": "pforest",
+        "backup": "Qiang-Xu",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "45560534477bfbb3a5b2a0d2f73867213e7c44fd"
+    },
+    "agentrust-io.github.io": {
+      "primary": "pforest",
+      "backup": "Qiang-Xu",
+      "capacity": "awaiting_acceptance",
+      "observed_permissions": {
+        "pforest": "write",
+        "Qiang-Xu": "write"
+      },
+      "gate_enabled": true,
+      "policy": {
+        "schema": 1,
+        "repository": "agentrust-io.github.io",
+        "source": "agentrust-io/.github:maintainers/roster.json",
+        "maintainers": [
+          "imran-siddique",
+          "pforest",
+          "podcastinator",
+          "Qiang-Xu"
+        ],
+        "security_paths": [],
+        "security_approvals": 1
+      },
+      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @pforest @Qiang-Xu\n",
+      "release": {
+        "primary": "pforest",
+        "backup": "Qiang-Xu",
+        "publisher_access": "unverified"
+      },
+      "specialist_access": "not_separately_required",
+      "bootstrap_base": "2405a48cb4acaa80fbcb7dccbc1b6430c75be786"
+    }
+  }
+}

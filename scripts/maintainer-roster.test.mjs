@@ -10,18 +10,20 @@ const execute = new AsyncFunction('github', 'context', 'core', 'Buffer', templat
 const policy = { schema: 1, repository: 'cmcp', maintainers: ['owner-a', 'owner-b'], security_paths: ['src/security/'], security_approvals: 2 };
 const review = (login, state = 'APPROVED', commit = 'head', id = 1, type = 'User') =>
   ({ id, user: { login, type }, state, commit_id: commit, submitted_at: new Date(id * 1000).toISOString() });
-async function run({ author = 'contributor', files = [], reviews = [], body = policy, count = files.length, error = false, missing = false, base = "reviewed-base" } = {}) {
+async function run({ author = 'contributor', files = [], reviews = [], body = policy, count = files.length, error = false, missing = false, base = "reviewed-base", baseRef = 'main' } = {}) {
+  const absent = ref => missing === true || (Array.isArray(missing) && missing.includes(ref));
+  const denied = ref => error === true || (Array.isArray(error) && error.includes(ref));
   const failures = [], calls = [];
   const github = {
     rest: {
       pulls: {
-        get: async () => ({ data: { number: 7, user: { login: author }, head: { sha: 'head' }, base: { sha: base }, changed_files: count } }),
+        get: async () => ({ data: { number: 7, user: { login: author }, head: { sha: 'head' }, base: { sha: base, ref: baseRef }, changed_files: count } }),
         listFiles: 'files', listReviews: 'reviews',
       },
       repos: { getContent: async args => {
         calls.push(args);
-        if (error) throw Error('API denied');
-        if (missing) throw Object.assign(Error('Not found'), {status:404});
+        if (denied(args.ref)) throw Error('API denied');
+        if (absent(args.ref)) throw Object.assign(Error('Not found'), {status:404});
         return { data: { encoding: 'base64', content: Buffer.from(JSON.stringify(body)).toString('base64') } };
       } },
     },
@@ -31,7 +33,7 @@ async function run({ author = 'contributor', files = [], reviews = [], body = po
     { setFailed: message => failures.push(message), info: () => {} }, Buffer);
   assert.equal(calls[0].ref, base);
   assert.equal(calls[0].path, '.github/maintainers.json');
-  return failures;
+  return Object.assign(failures, { calls });
 }
 test('canonical roster validates; self coverage, read access and weakened security fail', () => {
   validate(roster);
@@ -93,6 +95,28 @@ test('missing, malformed and unavailable trusted policy fail closed; incomplete 
 test('bootstrap is limited to its reviewed initial base; later missing policy fails closed', async () => {
   assert.equal((await run({missing:true,base:'initial-base',reviews:[review('owner-a')]})).length,0);
   await assert.rejects(run({missing:true,base:'reviewed-base'}), /Not found/);
+});
+
+test('a base from before the policy file reads the policy at the base branch tip', async () => {
+  const old = { missing: ['old-base'], base: 'old-base' };
+  const approved = await run({ ...old, reviews: [review('owner-a')] });
+  assert.equal(approved.length, 0);
+  assert.deepEqual(approved.calls.map(c => c.ref), ['old-base', 'refs/heads/main']);
+  const other = await run({ missing: ['old-base'], base: 'old-base', baseRef: 'release', reviews: [review('owner-a')] });
+  assert.deepEqual(other.calls.map(c => c.ref), ['old-base', 'refs/heads/release']);
+  assert.equal((await run(old)).length, 1);
+  assert.equal((await run({ ...old, reviews: [review('outsider')] })).length, 1);
+  await assert.rejects(run({ ...old, body: { ...policy, security_approvals: 1 } }), /Invalid/);
+  assert.equal((await run({ base: 'old-base', reviews: [review('owner-a')] })).calls.length, 1);
+  await assert.rejects(run({ error: ['old-base'], base: 'old-base', reviews: [review('owner-a')] }), /API denied/);
+});
+
+test('the bootstrap list is used only when the base branch has no policy either', async () => {
+  const body = { ...policy, maintainers: ['owner-c', 'owner-b'] };
+  const initial = { missing: ['initial-base'], base: 'initial-base', body };
+  assert.equal((await run({ ...initial, reviews: [review('owner-c')] })).length, 0);
+  assert.equal((await run({ ...initial, reviews: [review('owner-a')] })).length, 1);
+  await assert.rejects(run({ ...initial, error: ['refs/heads/main'], reviews: [review('owner-a')] }), /API denied/);
 });
 
 test('organization consumer matches canonical policy, owners and reviewed gate', async () => {

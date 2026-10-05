@@ -57,7 +57,17 @@ The retry is limited to transient failures and reports anything else as itself:
 | 403 rate limit | Honours `Retry-After`, clamped to 5-60s, within the attempt bound. |
 | 5xx | Full-jitter exponential backoff within the attempt bound. |
 | `URLError` | Full-jitter exponential backoff within the attempt bound. |
-| Any other HTTP status | Raised on the first attempt. |
+| Any other HTTP status | Raised on the first attempt, after a stderr line naming the status and the request path. |
+
+Every exhausted-retry line names the request path as well, since the action
+surfaces only the last stderr line.
+
+`_search_issues` raises `SearchUnavailable` when the search API answers 422
+"The listed users cannot be searched", which it does for some accounts with
+public profiles under any token but their own. `check_contributor` then reports
+`UNKNOWN` with a `search_unavailable` signal after the account-shape and
+repo-theme checks, rather than crashing or scoring only the checks that could
+run. See agentrust-io/.github#56.
 
 When a retryable condition outlasts the bound, the final line written to stderr
 names the cause before the exception propagates. `contributor_check_action.py`

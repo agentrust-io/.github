@@ -57,6 +57,22 @@ def _get_token() -> str:
     return token
 
 
+class SearchUnavailable(Exception):
+    """GitHub search refuses ``author:`` queries for this account.
+
+    Same refusal as in ``contributor_check.py``. Returning ``None`` here would
+    read as an empty history and score clean. See agentrust-io/.github#56.
+    """
+
+
+def _is_search_refusal(exc: HTTPError) -> bool:
+    try:
+        body = exc.read().decode("utf-8", "replace")
+    except Exception:
+        return False
+    return "cannot be searched" in body
+
+
 def _api(path: str, params: dict[str, str] | None = None) -> Any:
     url = f"https://api.github.com{path}"
     if params:
@@ -77,6 +93,8 @@ def _api(path: str, params: dict[str, str] | None = None) -> Any:
                 print(f"  Rate limited, waiting {wait}s...", file=sys.stderr)
                 import time; time.sleep(wait)
                 continue
+            if exc.code == 422 and _is_search_refusal(exc):
+                raise SearchUnavailable(path) from exc
             if exc.code in (404, 422):
                 return None
             raise
@@ -119,6 +137,7 @@ class ClusterReport:
     accounts: dict[str, AccountInfo] = field(default_factory=dict)
     edges: list[Edge] = field(default_factory=list)
     shared_forks: dict[str, list[str]] = field(default_factory=dict)
+    search_unavailable: bool = False
 
     @property
     def account_count(self) -> int:
@@ -129,6 +148,8 @@ class ClusterReport:
         return len(self.edges)
 
     def risk_level(self) -> str:
+        if self.search_unavailable:
+            return "UNKNOWN"
         if self.account_count >= 5 and self.edge_count >= 8:
             return "HIGH"
         elif self.account_count >= 3 and self.edge_count >= 4:
@@ -327,6 +348,16 @@ def detect_cluster(seed: str, depth: int = 1) -> ClusterReport:
         return report
     report.accounts[seed] = seed_info
 
+    try:
+        _walk(report, seed, depth)
+    except SearchUnavailable:
+        # The co-comment and sync-filing passes read author: search. Without
+        # them the edge count is not established, so no level is reported.
+        report.search_unavailable = True
+    return report
+
+
+def _walk(report: ClusterReport, seed: str, depth: int) -> None:
     visited = {seed}
     frontier = {seed}
 
@@ -376,8 +407,6 @@ def detect_cluster(seed: str, depth: int = 1) -> ClusterReport:
             seen_edges.add(key)
             unique_edges.append(edge)
     report.edges = unique_edges
-
-    return report
 
 
 # ---------------------------------------------------------------------------

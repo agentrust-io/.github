@@ -116,7 +116,7 @@ def _api(path: str, params: dict[str, str] | None = None) -> Any:
                     continue
                 print(
                     f"  Rate limited by the GitHub API and still limited after "
-                    f"{_RETRY_MAX_ATTEMPTS} attempts",
+                    f"{_RETRY_MAX_ATTEMPTS} attempts on {path}",
                     file=sys.stderr,
                 )
                 raise
@@ -132,11 +132,13 @@ def _api(path: str, params: dict[str, str] | None = None) -> Any:
                     continue
                 print(
                     f"  GitHub API returned {exc.code} on all "
-                    f"{_RETRY_MAX_ATTEMPTS} attempts",
+                    f"{_RETRY_MAX_ATTEMPTS} attempts on {path}",
                     file=sys.stderr,
                 )
                 raise
-            # Anything else is the API answering. Report it as itself.
+            # Anything else is the API answering. Report it as itself, and
+            # name the call: the action surfaces only the last stderr line.
+            print(f"  GitHub API returned {exc.code} on {path}", file=sys.stderr)
             raise
         except URLError as exc:
             # Network-layer failures: DNS, TCP reset, TLS abort, socket
@@ -152,15 +154,35 @@ def _api(path: str, params: dict[str, str] | None = None) -> Any:
                 continue
             print(
                 f"  Network error ({exc.reason}) on all "
-                f"{_RETRY_MAX_ATTEMPTS} attempts",
+                f"{_RETRY_MAX_ATTEMPTS} attempts on {path}",
                 file=sys.stderr,
             )
             raise
 
 
+class SearchUnavailable(Exception):
+    """GitHub search refuses to run an ``author:`` query for this account.
+
+    The search API answers 422 "The listed users cannot be searched" for some
+    accounts whose profiles are otherwise public, under any token other than
+    the account's own. No issue history can be read for them, so the signals
+    built on it are not established. See agentrust-io/.github#56.
+    """
+
+
 def _search_issues(query: str, per_page: int = 30) -> list[dict]:
     """Search GitHub issues/PRs."""
-    data = _api("/search/issues", {"q": query, "per_page": str(per_page)})
+    try:
+        data = _api("/search/issues", {"q": query, "per_page": str(per_page)})
+    except HTTPError as exc:
+        if exc.code == 422:
+            try:
+                body = exc.read().decode("utf-8", "replace")
+            except Exception:
+                body = ""
+            if "cannot be searched" in body:
+                raise SearchUnavailable(query) from exc
+        raise
     return data.get("items", []) if data else []
 
 
@@ -1054,7 +1076,10 @@ def check_contributor(username: str, target_repo: str | None = None) -> Reputati
 
     # Shared data fetches (avoids redundant API calls across checkers)
     repos = _api(f"/users/{username}/repos", {"per_page": "100", "sort": "created"}) or []
-    issues = _search_issues(f"author:{username} is:issue", per_page=100)
+    try:
+        issues = _search_issues(f"author:{username} is:issue", per_page=100)
+    except SearchUnavailable:
+        issues = None
 
     # Run checks with shared data
     for signal in check_account_shape(user):
@@ -1062,6 +1087,21 @@ def check_contributor(username: str, target_repo: str | None = None) -> Reputati
 
     for signal in check_repo_themes(username, repos=repos):
         report.add(signal)
+
+    if issues is None:
+        # Every remaining check reads issue or PR search. Report the account
+        # as undetermined rather than scoring the checks that could run as if
+        # they were all of them.
+        report.add(Signal(
+            name="search_unavailable",
+            severity="LOW",
+            detail=(
+                "GitHub search refuses author: queries for this account, so "
+                "spray, credibility, credential and overlap signals were not established"
+            ),
+        ))
+        report.risk = "UNKNOWN"
+        return report
 
     for signal in check_spray_pattern(username, issues=issues, user_repos=repos):
         report.add(signal)

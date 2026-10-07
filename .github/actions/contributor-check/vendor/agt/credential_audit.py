@@ -59,6 +59,22 @@ def _get_token() -> str:
     return token
 
 
+class SearchUnavailable(Exception):
+    """GitHub search refuses ``author:`` queries for this account.
+
+    Same refusal as in ``contributor_check.py``. Returning ``None`` here would
+    read as an empty history and score clean. See agentrust-io/.github#56.
+    """
+
+
+def _is_search_refusal(exc: HTTPError) -> bool:
+    try:
+        body = exc.read().decode("utf-8", "replace")
+    except Exception:
+        return False
+    return "cannot be searched" in body
+
+
 def _api(path: str, params: dict[str, str] | None = None) -> Any:
     url = f"https://api.github.com{path}"
     if params:
@@ -81,6 +97,8 @@ def _api(path: str, params: dict[str, str] | None = None) -> Any:
                 print(f"  Rate limited, waiting {wait}s...", file=sys.stderr)
                 import time; time.sleep(wait)
                 continue
+            if exc.code == 422 and _is_search_refusal(exc):
+                raise SearchUnavailable(path) from exc
             if exc.code in (404, 422):
                 return None
             raise
@@ -285,7 +303,12 @@ def audit_credentials(username: str, target_repo: str) -> CredentialAuditReport:
     report = CredentialAuditReport(username=username, target_repo=target_repo)
 
     # Step 1: Find merges
-    report.merges = find_merges(username, target_repo)
+    try:
+        report.merges = find_merges(username, target_repo)
+    except SearchUnavailable:
+        # No merge history can be read, which is not the same as none.
+        report.risk = "UNKNOWN"
+        return report
     if not report.merges:
         report.risk = "NONE"
         return report

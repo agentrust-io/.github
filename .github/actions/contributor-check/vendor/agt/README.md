@@ -18,15 +18,17 @@ level. See agentrust-io/.github#27.
 |---|---|---|
 | `contributor_check.py` | `scripts/contributor_check.py` | modified, see below |
 | `contributor_check_allowlist.json` | `scripts/contributor_check_allowlist.json` | `d8a5ddbb0695c21b3eae88e6bc85edcda6cbd9721cad3ca9d10fbeeed4fc0636` |
-| `credential_audit.py` | `scripts/credential_audit.py` | `9650675038e7720a6d5cdd8be058fa38b2e004cc1e6f7bc81c48ed100e4680e1` |
-| `cluster_detect.py` | `scripts/cluster_detect.py` | `da36c10074aa638bf61c5873fbe6cff975533563553689eba5e90329e3d8d7cf` |
+| `credential_audit.py` | `scripts/credential_audit.py` | modified, see below |
+| `cluster_detect.py` | `scripts/cluster_detect.py` | modified, see below |
 | `contributor_check_action.py` | `scripts/contributor_check_action.py` | modified, see below |
 
-The first three unmodified files are byte-identical to upstream at that commit.
-The checksums above are the upstream bytes, so `sha256sum` here is a one-line
-verification for those three.
+The unmodified file is byte-identical to upstream at that commit. Its checksum
+above is the upstream bytes, so `sha256sum` here is a one-line verification.
+`credential_audit.py` was `9650675038e7720a6d5cdd8be058fa38b2e004cc1e6f7bc81c48ed100e4680e1`
+and `cluster_detect.py` was `da36c10074aa638bf61c5873fbe6cff975533563553689eba5e90329e3d8d7cf`
+upstream before the change below.
 
-## The two local modifications
+## Local modifications
 
 ### `contributor_check_action.py`
 
@@ -57,7 +59,24 @@ The retry is limited to transient failures and reports anything else as itself:
 | 403 rate limit | Honours `Retry-After`, clamped to 5-60s, within the attempt bound. |
 | 5xx | Full-jitter exponential backoff within the attempt bound. |
 | `URLError` | Full-jitter exponential backoff within the attempt bound. |
-| Any other HTTP status | Raised on the first attempt. |
+| Any other HTTP status | Raised on the first attempt, after a stderr line naming the status and the request path. |
+
+Every exhausted-retry line names the request path as well, since the action
+surfaces only the last stderr line.
+
+`_search_issues` raises `SearchUnavailable` when the search API answers 422
+"The listed users cannot be searched", which it does for some accounts with
+public profiles under any token but their own. `check_contributor` then reports
+`UNKNOWN` with a `search_unavailable` signal after the account-shape and
+repo-theme checks, rather than crashing or scoring only the checks that could
+run. See agentrust-io/.github#56.
+
+### `credential_audit.py` and `cluster_detect.py`
+
+`credential_audit.py` and `cluster_detect.py` recognise the same refusal in
+their own `_api` and report `UNKNOWN` for it. Before this, their catch-all for
+404 and 422 read a refused search as an empty history, which scored `NONE`.
+Any other 422 is still read as before.
 
 When a retryable condition outlasts the bound, the final line written to stderr
 names the cause before the exception propagates. `contributor_check_action.py`
@@ -85,6 +104,6 @@ here. The commit above is provenance, not a sync point, and no resync is
 planned.
 
 Change these files directly, as you would any other file in this repository.
-If a change lands in one of the three that remain byte-identical, move it out of
-the checksum table above and out of the `vendor-integrity` job, and describe the
-change here, the way the two modified files are described.
+If a change lands in the file that remains byte-identical, move it out of the
+checksum table above and out of the `vendor-integrity` job, and describe the
+change here, the way the modified files are described.

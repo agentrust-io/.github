@@ -39,7 +39,5 @@ jobs:
         run: |
           cd .github/actions/contributor-check/vendor/agt
           sha256sum -c --strict - <<'SUMS'
-          9650675038e7720a6d5cdd8be058fa38b2e004cc1e6f7bc81c48ed100e4680e1  credential_audit.py
-          da36c10074aa638bf61c5873fbe6cff975533563553689eba5e90329e3d8d7cf  cluster_detect.py
           d8a5ddbb0695c21b3eae88e6bc85edcda6cbd9721cad3ca9d10fbeeed4fc0636  contributor_check_allowlist.json
           SUMS

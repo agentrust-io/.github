@@ -40,7 +40,8 @@ class RiskExitContractTests(unittest.TestCase):
         for code, value in [
             (0, {"risk": "HIGH"}), (1, {"risk": "LOW"}),
             (2, {"risk": "MEDIUM"}), (0, {"risk": "INVALID"}),
-            (0, {}), (0, []), (3, {"risk": "HIGH"}),
+            (0, {}), (0, []), (0, {"risk": []}),
+            (0, {"risk": {}}), (0, {"risk": 3}), (3, {"risk": "HIGH"}),
             (127, {"risk": "LOW"}),
         ]:
             with self.subTest(code=code, value=value):

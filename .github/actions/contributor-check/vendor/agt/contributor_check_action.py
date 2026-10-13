@@ -119,7 +119,7 @@ def _run_check(script: str, args: list[str], out_path: str) -> str:
     if not isinstance(data, dict):
         raise CheckExecutionError(f"{name} produced non-object JSON")
     risk = data.get("risk")
-    if risk not in expected_exit:
+    if not isinstance(risk, str) or risk not in expected_exit:
         raise CheckExecutionError(f"{name} returned missing or unknown risk: {risk!r}")
     if result.returncode != expected_exit[risk]:
         raise CheckExecutionError(

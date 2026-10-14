@@ -128,6 +128,7 @@ def _run_check(script: str, args: list[str], out_path: str) -> str:
     # NONE means not applicable, not an unknown or failed scan.
     return "LOW" if risk == "NONE" else risk
 
+
 def _aggregate_risk(*levels: str) -> str:
     """Return the highest risk level from a set of check results.
 

@@ -103,7 +103,11 @@ def test_genuine_unknown_is_still_returned(tmp_path):
 
 @pytest.mark.parametrize("risk,expected", [("LOW", "LOW"), ("MEDIUM", "MEDIUM"), ("HIGH", "HIGH")])
 def test_computed_risk_passes_through(tmp_path, risk, expected):
-    script = _stub(tmp_path, "profile.py", f'print(\'{{"risk": "{risk}"}}\')\n')
+    exit_code = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}[risk]
+    script = _stub(
+        tmp_path, "profile.py",
+        f'import sys\nprint(\'{{"risk": "{risk}"}}\')\nsys.exit({exit_code})\n',
+    )
 
     assert action._run_check(script, [], str(tmp_path / "out.json")) == expected
 

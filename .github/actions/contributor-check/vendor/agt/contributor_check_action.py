@@ -99,10 +99,10 @@ def _run_check(script: str, args: list[str], out_path: str) -> str:
 
     Path(out_path).write_text(result.stdout)
 
-    # A non-zero exit means the check did not run to completion. An import
-    # error, a missing file or an unhandled exception all land here, and all
-    # of them used to reach the bare `except` below as UNKNOWN.
-    if result.returncode != 0:
+    # Scanners use 0/1/2 for completed LOW-or-NONE/MEDIUM/HIGH
+    # assessments. A nonzero assessment is not a process failure.
+    expected_exit = {"NONE": 0, "LOW": 0, "UNKNOWN": 0, "MEDIUM": 1, "HIGH": 2}
+    if result.returncode not in (0, 1, 2):
         detail = (result.stderr or "").strip().splitlines()
         tail = detail[-1] if detail else "no stderr"
         raise CheckExecutionError(
@@ -113,14 +113,19 @@ def _run_check(script: str, args: list[str], out_path: str) -> str:
         data = json.loads(result.stdout)
     except ValueError as exc:
         raise CheckExecutionError(
-            f"{name} exited 0 but produced no parseable JSON: {exc}"
+            f"{name} exited {result.returncode} but produced invalid JSON: {exc}"
         ) from exc
 
-    risk = data.get("risk", "UNKNOWN")
-    # credential_audit returns "NONE" when a user has no merged PRs in the
-    # target repo (nothing to launder = not applicable). Normalize to "LOW"
-    # so it aggregates correctly rather than being treated as UNKNOWN (which
-    # is reserved for checks that errored or could not be determined).
+    if not isinstance(data, dict):
+        raise CheckExecutionError(f"{name} produced non-object JSON")
+    risk = data.get("risk")
+    if not isinstance(risk, str) or risk not in expected_exit:
+        raise CheckExecutionError(f"{name} returned missing or unknown risk: {risk!r}")
+    if result.returncode != expected_exit[risk]:
+        raise CheckExecutionError(
+            f"{name} reported risk {risk} but exited {result.returncode}"
+        )
+    # NONE means not applicable, not an unknown or failed scan.
     return "LOW" if risk == "NONE" else risk
 
 

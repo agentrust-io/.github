@@ -1,8 +1,8 @@
 # Organization maintainers
 
-The [maintainers team](https://github.com/orgs/agentrust-io/teams/maintainers) maintains all current AgenTrust repositories. Its members are `imran-siddique`, `pforest` and `Qiang-Xu`.
+The [maintainers team](https://github.com/orgs/agentrust-io/teams/maintainers) maintains all current AgenTrust repositories. Its members are `imran-siddique`, `rajnisht7`, `carloshvp`, `lywinged` and `zohebk8s`, appointed in the [community handover](https://github.com/agentrust-io/.github/issues/60). Repository-specific maintainers retain their existing scope.
 
-Qiang is a maintainer across all AgenTrust repositories. Repository-specific maintainers retain their existing scope.
+Emeritus: `Qiang-Xu`, `pforest`.
 
 Maintainers can merge after the applicable reviews, checks and thread-resolution requirements pass. Approval must cover the current head; authors and the last pusher still need independent approval. Repository access does not waive specification governance or specialist code-owner requirements.
 

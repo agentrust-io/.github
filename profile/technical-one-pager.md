@@ -11,9 +11,9 @@ Anthropic's [*Zero-Trust for AI Agents*](https://claude.com/blog/zero-trust-for-
 
 agentrust-io stands on two things that already exist and work.
 
-**1 · Policy — the Agent Governance Toolkit (AGT).** Created by Imran Siddique (now OPAQUE's Chief Platform Officer) at Microsoft and open-sourced under MIT: 5,100+ stars, 830+ forks since its April 2026 public launch; 10/10 OWASP Agentic Top 10 coverage; ships trust-score decay, scope-chain delegation (monotonic narrowing), and a multi-agent fleet daemon. AGT remains a Microsoft-owned MIT project; any standards home for it is Microsoft's to announce, not ours.
+**1 · Policy — the Agent Governance Toolkit (AGT).** Created by Imran Siddique (Project Lead) at Microsoft and open-sourced under MIT: 5,100+ stars, 830+ forks since its April 2026 public launch; 10/10 OWASP Agentic Top 10 coverage; ships trust-score decay, scope-chain delegation (monotonic narrowing), and a multi-agent fleet daemon. AGT remains a Microsoft-owned MIT project; any standards home for it is Microsoft's to announce, not ours.
 
-**2 · Enforcement — a confidential runtime, pluggable by design.** The policy bundle is sealed and measured inside a TEE on the confidential-computing silicon you already operate — Intel TDX, AMD SEV-SNP, NVIDIA CC, or TPM. The OPAQUE Confidential AI is the hardware-rooted, managed reference implementation; an operator can bring its own.
+**2 · Enforcement — a confidential runtime, pluggable by design.** The policy bundle is sealed and measured inside a TEE on the confidential-computing silicon you already operate — Intel TDX, AMD SEV-SNP, NVIDIA CC, or TPM. An operator can bring its own runtime.
 
 agentrust-io doesn't reinvent governance — it makes AGT's policy **provable** by binding it to a hardware-attested confidential runtime. A policy decision isn't just enforced; it's evidenced.
 
@@ -32,10 +32,6 @@ The stack runs at one of four conformance levels (L0–L3): software-only → TE
 ## TRACE — the envelope that ties it together
 
 TRACE (Trust Runtime Attestation and Compliance Evidence) is the portable governance record at the center of the stack: a single attestation envelope (EAT/JWT, per the IETF RATS model) that **carries the other standards' evidence** — build provenance (SLSA), workload identity (SPIFFE SVID), model inventory (AIBOM), a cryptographic bill of materials (CBOM — the crypto libraries and algorithms in use), and the agent's tool-call transcript — cryptographically bound and anchored in an append-only transparency log. One verifiable record that proves **what an agent was** and **what it did**, reconstructable after the fact and confirmable by a party with no reason to trust the operator. Open spec, going to the Linux Foundation as its own series.
-
-## About OPAQUE
-
-OPAQUE is the Confidential AI company. Born from UC Berkeley's RISELab (now the Sky Compute Lab), OPAQUE lets organizations run AI models, agents, and workflows on their most sensitive data with hardware-rooted isolation and verifiable evidence that approved governance policies were enforced. Founded by Dr. Ion Stoica (co-founder of Databricks; co-director, UC Berkeley Sky Compute Lab), Dr. Raluca Ada Popa (ACM Grace Hopper Award winner; Senior Staff Research Scientist at Google DeepMind, where she leads AGI security research), and Rishabh Poddar (CTO). Aaron Fulkerson is Chief Executive Officer, and Imran Siddique, creator of the open-source Agent Governance Toolkit (AGT), is Chief Platform Officer. OPAQUE created the Confidential Computing Summit, now co-hosted with the Linux Foundation.
 
 ---
 

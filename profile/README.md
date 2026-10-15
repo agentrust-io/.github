@@ -18,12 +18,9 @@ agentrust-io is the open trust layer built to close it: replacing "we have guard
 
 The specifications, SDKs, and conformance tests are free and open. Begin in software; advance to hardware-backed and post-quantum assurance as requirements demand.
 
-**OPAQUE Systems is a founding engineering and infrastructure sponsor and an
-active contributor.** Sponsorship supports the work but does not confer
-ownership of AgenTrust projects or governance authority over their technical
-decisions. Each repository's licence, charter, maintainer list, and published
-governance process define its legal and technical stewardship. See the
-[organization sponsor policy](https://github.com/agentrust-io/.github/blob/main/SPONSORS.md).
+**AgenTrust is an independent open-source project. No company funds, owns or directs it; contributions are voluntary.** Each repository's licence, charter, maintainer list, and published
+governance process define its legal and technical stewardship. See
+[SPONSORS.md](https://github.com/agentrust-io/.github/blob/main/SPONSORS.md).
 
 [![License](https://img.shields.io/badge/License-Apache_2.0_%2F_MIT_%2F_CC_BY_4.0-blue.svg)](#projects)
 [![Linux Foundation](https://img.shields.io/badge/TRACE-Linux_Foundation_series_(in_formation)-6366f1)](https://www.linuxfoundation.org/)
@@ -55,7 +52,7 @@ These projects are developed in the open. We intend to propose them to recognize
 
 - **TRACE**: going to the **Linux Foundation as its own series**, "TRACE Specification, a Series of LF Projects, LLC". Formation is in progress with the LF standards team; governance has been brought into the shape LF requires ([trace-spec#127](https://github.com/agentrust-io/trace-spec/pull/127)). This supersedes the earlier plan to co-host under CoSAI or under the LF entity hosting MCP. Founding co-editor seats are open now.
 - **Agent Manifest**: we intend to submit it through CoSAI under OASIS Open, building on CoSAI Workstream 4.
-- **AGT (Agent Governance Toolkit)**: the runtime governance engine this stack builds on, created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license: [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit).
+- **AGT (Agent Governance Toolkit)**: the runtime governance engine this stack builds on, created by Imran Siddique (Project Lead) while at Microsoft and released under the MIT license: [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit).
 
 ---
 
@@ -169,7 +166,7 @@ The eBook calls for policy at four layers (model, agent, tool, request) with fle
 
 The repository and its anchor and inclusion-proof format ([registry-anchor-v1](https://github.com/agentrust-io/trace-spec/blob/main/spec/registry-anchor-v1.md)) are public, so an outside party can verify an anchor without asking us for anything.
 
-**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Chief Platform Officer, OPAQUE) while at Microsoft and released under the MIT license — 6,300+ stars; 7 of the OWASP Agentic Top 10 covered fully and 3 partially, self-assessed) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
+**AGT (Agent Governance Toolkit)** ([microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit), created by Imran Siddique (Project Lead) while at Microsoft and released under the MIT license — 6,300+ stars; 7 of the OWASP Agentic Top 10 covered fully and 3 partially, self-assessed) provides the runtime governance layer: trust score decay (a score at deployment is meaningless six months later), scope-chain delegation (monotonic narrowing: agent-to-agent delegation with verifiable credentials), and a fleet daemon for multi-agent orchestration.
 
 ### Multi-Agent Coordination Governance
 

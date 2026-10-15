@@ -1,26 +1,28 @@
 {
   "schema": 1,
   "organization": "agentrust-io",
-  "verified_at": "2026-10-02",
+  "verified_at": "2026-10-14",
   "global_maintainers": [
     "imran-siddique",
-    "pforest",
-    "Qiang-Xu"
+    "rajnisht7",
+    "carloshvp",
+    "lywinged",
+    "zohebk8s"
   ],
   "administration": {
-    "primary": "Qiang-Xu",
-    "backup": "pforest",
+    "primary": "rajnisht7",
+    "backup": "imran-siddique",
     "repository_permissions_verified": true,
     "organization_owner_membership": "unverified"
   },
   "repositories": {
     ".github": {
-      "primary": "Qiang-Xu",
-      "backup": "pforest",
+      "primary": "rajnisht7",
+      "backup": "carloshvp",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "Qiang-Xu": "admin",
-        "pforest": "admin"
+        "rajnisht7": "maintain",
+        "carloshvp": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -29,16 +31,18 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "Qiang-Xu"
+          "rajnisht7",
+          "carloshvp",
+          "lywinged",
+          "zohebk8s"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
-      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @pforest @Qiang-Xu\n",
+      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @rajnisht7 @carloshvp @lywinged @zohebk8s\n",
       "release": {
-        "primary": "Qiang-Xu",
-        "backup": "pforest",
+        "primary": "rajnisht7",
+        "backup": "carloshvp",
         "publisher_access": "unverified"
       },
       "specialist_access": "not_separately_required",
@@ -46,11 +50,11 @@
     },
     "agent-manifest": {
       "primary": "rajnisht7",
-      "backup": "zohebk8s",
+      "backup": "carloshvp",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "rajnisht7": "write",
-        "zohebk8s": "write"
+        "rajnisht7": "maintain",
+        "carloshvp": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -61,8 +65,6 @@
           "imran-siddique",
           "carloshvp",
           "zohebk8s",
-          "pforest",
-          "Qiang-Xu",
           "rajnisht7"
         ],
         "security_paths": [],
@@ -71,7 +73,7 @@
       "codeowners": "# Default owners for everything\n* @agentrust-io/maintainers @carloshvp @zohebk8s @rajnisht7\n\n# Spec changes require spec-editor review\n/spec/ @agentrust-io/spec-editors\n\n# SDK changes require SDK maintainer review\n/python/ @agentrust-io/sdk-maintainers\n\n# CI changes require maintainer review\n/.github/ @agentrust-io/maintainers @carloshvp @zohebk8s @rajnisht7\n",
       "release": {
         "primary": "rajnisht7",
-        "backup": "zohebk8s",
+        "backup": "carloshvp",
         "publisher_access": "unverified"
       },
       "specialist_access": "unverified",
@@ -82,8 +84,8 @@
       "backup": "zohebk8s",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "carloshvp": "write",
-        "zohebk8s": "write"
+        "carloshvp": "maintain",
+        "zohebk8s": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -95,11 +97,7 @@
           "carloshvp",
           "qubeena07",
           "zohebk8s",
-          "pforest",
-          "Qiang-Xu",
-          "rajnisht7",
-          "podcastinator",
-          "AaronRoeF"
+          "rajnisht7"
         ],
         "security_paths": [
           "src/cmcp_runtime/audit/",
@@ -123,8 +121,8 @@
       "backup": "zohebk8s",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "carloshvp": "write",
-        "zohebk8s": "write"
+        "carloshvp": "maintain",
+        "zohebk8s": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -133,12 +131,8 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "podcastinator",
           "carloshvp",
-          "Qiang-Xu",
-          "zohebk8s",
-          "AaronRoeF"
+          "zohebk8s"
         ],
         "security_paths": [
           "src/ca2a_runtime/delegation/",
@@ -162,8 +156,8 @@
       "backup": "rajnisht7",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "lywinged": "write",
-        "rajnisht7": "write"
+        "lywinged": "maintain",
+        "rajnisht7": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -173,8 +167,6 @@
         "maintainers": [
           "imran-siddique",
           "lywinged",
-          "pforest",
-          "Qiang-Xu",
           "rajnisht7"
         ],
         "security_paths": [],
@@ -190,12 +182,12 @@
       "bootstrap_base": "c5cfa00e1c62ca1b4da2b999fc16e943dad09d90"
     },
     "trace-registry": {
-      "primary": "Qiang-Xu",
-      "backup": "pforest",
+      "primary": "lywinged",
+      "backup": "rajnisht7",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "Qiang-Xu": "admin",
-        "pforest": "admin"
+        "lywinged": "maintain",
+        "rajnisht7": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -204,28 +196,28 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "Qiang-Xu"
+          "lywinged",
+          "rajnisht7"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
-      "codeowners": "# Default owners for everything.\n* @agentrust-io/opaque-lt\n\n# The registry itself is append-only and is the product. Any change here needs\n# owner review, including one that only looks like a reformat: rewriting a\n# published entry diverges the commit hashes mirrors have already observed,\n# which is the tamper-evidence this repository exists to provide.\n/registry/ @agentrust-io/opaque-lt\n/schema/ @agentrust-io/opaque-lt\n\n# Anchor format and verification semantics: a change here can invalidate proofs\n# third parties already hold.\n/docs/anchor-format.md @agentrust-io/opaque-lt\n/src/ @agentrust-io/opaque-lt\n/tools/ @agentrust-io/opaque-lt\n\n# CI, publishing, and governance.\n/.github/ @agentrust-io/opaque-lt\n",
+      "codeowners": "# Default owners for everything.\n* @agentrust-io/maintainers @lywinged @rajnisht7\n\n# The registry itself is append-only and is the product. Any change here needs\n# owner review, including one that only looks like a reformat: rewriting a\n# published entry diverges the commit hashes mirrors have already observed,\n# which is the tamper-evidence this repository exists to provide.\n/registry/ @agentrust-io/maintainers @lywinged @rajnisht7\n/schema/ @agentrust-io/maintainers @lywinged @rajnisht7\n\n# Anchor format and verification semantics: a change here can invalidate proofs\n# third parties already hold.\n/docs/anchor-format.md @agentrust-io/maintainers @lywinged @rajnisht7\n/src/ @agentrust-io/maintainers @lywinged @rajnisht7\n/tools/ @agentrust-io/maintainers @lywinged @rajnisht7\n\n# CI, publishing, and governance.\n/.github/ @agentrust-io/maintainers @lywinged @rajnisht7\n",
       "release": {
-        "primary": "Qiang-Xu",
-        "backup": "pforest",
+        "primary": "lywinged",
+        "backup": "rajnisht7",
         "publisher_access": "unverified"
       },
       "specialist_access": "unverified",
       "bootstrap_base": "fc68dee2dabba8963d0324485856400e1198e475"
     },
     "weight-custody-manifest": {
-      "primary": "Qiang-Xu",
-      "backup": "pforest",
+      "primary": "zohebk8s",
+      "backup": "dinakarjs",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "Qiang-Xu": "admin",
-        "pforest": "admin"
+        "zohebk8s": "maintain",
+        "dinakarjs": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -234,17 +226,16 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "podcastinator",
-          "Qiang-Xu"
+          "zohebk8s",
+          "dinakarjs"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
-      "codeowners": "# Default owners for everything\n* @agentrust-io/maintainers\n\n# Spec + threat model require spec-editor review\n/SPEC.md @agentrust-io/spec-editors\n/THREAT-MODEL.md @agentrust-io/spec-editors\n\n# SDK changes require SDK maintainer review\n/python/ @agentrust-io/sdk-maintainers\n\n# CI and governance changes require maintainer review\n/.github/ @agentrust-io/maintainers\n",
+      "codeowners": "# Default owners for everything\n* @agentrust-io/maintainers @dinakarjs\n\n# Spec + threat model require spec-editor review\n/SPEC.md @agentrust-io/spec-editors @dinakarjs\n/THREAT-MODEL.md @agentrust-io/spec-editors @dinakarjs\n\n# SDK changes require SDK maintainer review\n/python/ @agentrust-io/sdk-maintainers @dinakarjs\n\n# CI and governance changes require maintainer review\n/.github/ @agentrust-io/maintainers @dinakarjs\n",
       "release": {
-        "primary": "Qiang-Xu",
-        "backup": "pforest",
+        "primary": "zohebk8s",
+        "backup": "dinakarjs",
         "publisher_access": "unverified"
       },
       "specialist_access": "unverified",
@@ -252,11 +243,11 @@
     },
     "integrations": {
       "primary": "carloshvp",
-      "backup": "Qiang-Xu",
+      "backup": "rajnisht7",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "carloshvp": "write",
-        "Qiang-Xu": "write"
+        "carloshvp": "maintain",
+        "rajnisht7": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -265,30 +256,28 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "podcastinator",
           "carloshvp",
-          "Qiang-Xu"
+          "rajnisht7"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
-      "codeowners": "* @imran-siddique @carloshvp @agentrust-io/maintainers\n\n# Reviewed first-party scenarios and demonstrations.\n/examples/ @imran-siddique @carloshvp @agentrust-io/maintainers\n/demos/ @imran-siddique @pforest @podcastinator @Qiang-Xu @agentrust-io/maintainers\n/.github/workflows/examples-* @imran-siddique @carloshvp @agentrust-io/maintainers\n/.github/workflows/demos-* @imran-siddique @pforest @podcastinator @Qiang-Xu @agentrust-io/maintainers\n",
+      "codeowners": "* @imran-siddique @carloshvp @agentrust-io/maintainers\n\n# Reviewed first-party scenarios and demonstrations.\n/examples/ @imran-siddique @carloshvp @agentrust-io/maintainers\n/demos/ @imran-siddique @agentrust-io/maintainers\n/.github/workflows/examples-* @imran-siddique @carloshvp @agentrust-io/maintainers\n/.github/workflows/demos-* @imran-siddique @agentrust-io/maintainers\n",
       "release": {
         "primary": "carloshvp",
-        "backup": "Qiang-Xu",
+        "backup": "rajnisht7",
         "publisher_access": "unverified"
       },
       "specialist_access": "not_separately_required",
       "bootstrap_base": "06c1dd113d86ae94844bcc8840b5c8c78bc62e83"
     },
     "agentrust-telemetry": {
-      "primary": "Qiang-Xu",
-      "backup": "pforest",
+      "primary": "rajnisht7",
+      "backup": "carloshvp",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "Qiang-Xu": "write",
-        "pforest": "write"
+        "rajnisht7": "maintain",
+        "carloshvp": "maintain"
       },
       "gate_enabled": false,
       "policy": {
@@ -297,28 +286,28 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "Qiang-Xu"
+          "rajnisht7",
+          "carloshvp"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
       "codeowners": "* @imran-siddique @agentrust-io/maintainers\n\n/spec/ @imran-siddique @agentrust-io/maintainers\n/conformance/ @imran-siddique @agentrust-io/maintainers\n/src/agentrust_telemetry/validation.py @imran-siddique @agentrust-io/maintainers\n/src/agentrust_telemetry/context.py @imran-siddique @agentrust-io/maintainers\n/.github/workflows/ @imran-siddique @agentrust-io/maintainers\n",
       "release": {
-        "primary": "Qiang-Xu",
-        "backup": "pforest",
+        "primary": "rajnisht7",
+        "backup": "carloshvp",
         "publisher_access": "unverified"
       },
       "specialist_access": "not_separately_required",
       "bootstrap_base": "aa71016a031eabc2e8561f203f8fc6716cc46df7"
     },
     "awesome-ai-governance": {
-      "primary": "pforest",
-      "backup": "Qiang-Xu",
+      "primary": "rajnisht7",
+      "backup": "carloshvp",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "pforest": "write",
-        "Qiang-Xu": "write"
+        "rajnisht7": "maintain",
+        "carloshvp": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -327,29 +316,28 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "podcastinator",
-          "Qiang-Xu"
+          "rajnisht7",
+          "carloshvp"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
-      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @pforest @Qiang-Xu\n",
+      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @rajnisht7 @carloshvp\n",
       "release": {
-        "primary": "pforest",
-        "backup": "Qiang-Xu",
+        "primary": "rajnisht7",
+        "backup": "carloshvp",
         "publisher_access": "unverified"
       },
       "specialist_access": "not_separately_required",
       "bootstrap_base": "45560534477bfbb3a5b2a0d2f73867213e7c44fd"
     },
     "agentrust-io.github.io": {
-      "primary": "pforest",
-      "backup": "Qiang-Xu",
+      "primary": "rajnisht7",
+      "backup": "carloshvp",
       "capacity": "awaiting_acceptance",
       "observed_permissions": {
-        "pforest": "write",
-        "Qiang-Xu": "write"
+        "rajnisht7": "maintain",
+        "carloshvp": "maintain"
       },
       "gate_enabled": true,
       "policy": {
@@ -358,17 +346,16 @@
         "source": "agentrust-io/.github:maintainers/roster.json",
         "maintainers": [
           "imran-siddique",
-          "pforest",
-          "podcastinator",
-          "Qiang-Xu"
+          "rajnisht7",
+          "carloshvp"
         ],
         "security_paths": [],
         "security_approvals": 1
       },
-      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @pforest @Qiang-Xu\n",
+      "codeowners": "# Organization maintainers review all changes.\n* @imran-siddique @rajnisht7 @carloshvp\n",
       "release": {
-        "primary": "pforest",
-        "backup": "Qiang-Xu",
+        "primary": "rajnisht7",
+        "backup": "carloshvp",
         "publisher_access": "unverified"
       },
       "specialist_access": "not_separately_required",

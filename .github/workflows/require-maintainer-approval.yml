@@ -53,7 +53,7 @@ jobs:
                 // One-commit bootstrap: the initial policy PR must be reviewable before its
                 // policy file exists on main. Missing policy on any later base fails closed.
                 if (error.status !== 404 || pr.base.sha !== "18334ccc22165be51687c57a5b103d06538535f4") throw error;
-                file = { encoding: 'base64', content: Buffer.from(JSON.stringify({"schema":1,"repository":".github","source":"agentrust-io/.github:maintainers/roster.json","maintainers":["imran-siddique","pforest","Qiang-Xu"],"security_paths":[],"security_approvals":1})).toString('base64') };
+                file = { encoding: 'base64', content: Buffer.from(JSON.stringify({"schema":1,"repository":".github","source":"agentrust-io/.github:maintainers/roster.json","maintainers":["imran-siddique","rajnisht7","carloshvp","lywinged","zohebk8s"],"security_paths":[],"security_approvals":1})).toString('base64') };
               }
             }
             if (Array.isArray(file) || file.encoding !== 'base64') {

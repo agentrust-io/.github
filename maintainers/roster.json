@@ -13,7 +13,13 @@
     "primary": "rajnisht7",
     "backup": "imran-siddique",
     "repository_permissions_verified": true,
-    "organization_owner_membership": "unverified"
+    "organization_owners": [
+      "imran-siddique",
+      "rajnisht7",
+      "AaronRoeF",
+      "podcastinator"
+    ],
+    "organization_owner_membership": "pending: AaronRoeF and podcastinator invited 2026-10-15"
   },
   "repositories": {
     ".github": {

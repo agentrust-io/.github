@@ -31,7 +31,7 @@ Route routine reviews to the primary. If unacknowledged after two business days,
 
 ### Administration
 
-Qiang and Trish provide verified repository administration backups for .github, CMCP, Agent Manifest, TRACE, registry and WCM. They have write access to CA2A, integrations, telemetry, website and awesome-ai-governance. Organization-owner membership and recovery access remain unverified. Confirm two organization owners through private settings. Keep emergency administration separate from routine independent review; do not add bypass rights to clear normal PRs.
+Organization owners are @imran-siddique and @rajnisht7 (verified 2026-10-14). @AaronRoeF and @podcastinator remain organization owners for recovery; their owner invitations were sent 2026-10-15 and are pending acceptance. They are not on the review rotation. Keep emergency administration separate from routine independent review; do not add bypass rights to clear normal PRs.
 
 ## Release operators
 

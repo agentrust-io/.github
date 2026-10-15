@@ -1,5 +1,7 @@
 # Contributing
 
+AgenTrust is an independent open-source project. No company funds, owns or directs it; contributions are voluntary.
+
 Thank you for your interest in contributing to AgenTrust projects.
 
 ## How to Contribute
